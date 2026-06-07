@@ -324,14 +324,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     text-align:center;
 }
 
-.quote-logo{
-    max-width:180px;
-    max-height:60px;
-    object-fit:contain;
-    margin-bottom:16px;
-}
-    
-    .quote-sheet{
+.quote-sheet{
     display:none;
     position:fixed;
     inset:0;
@@ -346,104 +339,214 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
 
 .quote-paper{
-    max-width:720px;
+    position:relative;
+    width:210mm;
+    min-height:297mm;
     margin:0 auto;
-    background:#fff;
+    background:#fbf8f1;
     color:#111;
-    border-radius:24px;
-    padding:32px;
+    padding:22mm 18mm;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
 }
 
-.quote-head{
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    align-items:flex-start;
-    border-bottom:2px solid #111;
-    padding-bottom:20px;
-    margin-bottom:20px;
+.quote-doc-title{
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:26px;
 }
 
-.quote-head h2{
-    margin:0;
-    font-size:26px;
-    letter-spacing:.08em;
-}
-
-.quote-head p{
-    margin:6px 0 0;
-    color:#666;
-}
-
-.quote-close{
-    border:none;
-    background:#eee;
-    border-radius:999px;
-    padding:8px 14px;
-    cursor:pointer;
-}
-
-.quote-meta{
+.quote-top{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:20px;
+    grid-template-columns:1.2fr .9fr 1.1fr 1.4fr;
+    border-top:1px solid #bbb;
+    border-bottom:1px solid #bbb;
+    margin-bottom:52px;
 }
 
-.quote-meta div{
-    background:#f6f2ea;
-    padding:14px;
-    border-radius:14px;
+.quote-top > div{
+    padding:14px 14px 16px 0;
+    min-height:110px;
 }
 
-.quote-meta span{
-    display:block;
-    color:#777;
+.quote-top > div + div{
+    padding-left:14px;
+}
+
+.quote-total-box{
+    border-left:1px solid #bbb;
+}
+
+.quote-top h4{
+    margin:0 0 22px;
+    font-size:15px;
+    font-weight:900;
+}
+
+.quote-top p{
+    margin:4px 0;
     font-size:12px;
-    margin-bottom:4px;
+    color:#444;
 }
 
-.quote-table{
+.quote-total-box strong{
+    display:block;
+    font-size:42px;
+    line-height:1;
+    text-align:right;
+    letter-spacing:-0.06em;
+    margin-top:28px;
+}
+
+.quote-list{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:20px;
+    margin-bottom:38px;
 }
 
-.quote-table th,
-.quote-table td{
-    border:1px solid #ddd;
-    padding:14px;
+.quote-list th{
     text-align:left;
+    font-size:14px;
+    font-weight:900;
+    padding:0 0 12px;
+    border-bottom:1px solid #bbb;
+}
+
+.quote-list td{
+    padding:14px 0;
+    font-size:14px;
+    font-weight:800;
+}
+
+.quote-list th:nth-child(2),
+.quote-list th:nth-child(3),
+.quote-list th:nth-child(4),
+.quote-list th:nth-child(5),
+.quote-list td:nth-child(2),
+.quote-list td:nth-child(3),
+.quote-list td:nth-child(4),
+.quote-list td:nth-child(5){
+    text-align:right;
+}
+
+.quote-list tbody tr:last-child td{
+    border-bottom:1px solid #bbb;
+    padding-bottom:22px;
+}
+
+.quote-summary{
+    width:38%;
+    margin-left:auto;
+    display:grid;
+    gap:12px;
     font-size:14px;
 }
 
-.quote-table th{
-    background:#111;
-    color:#fff;
+.quote-summary div{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.quote-total td{
-    font-size:18px;
+.quote-summary span,
+.quote-summary strong{
     font-weight:900;
-    background:#f6f2ea;
+}
+
+.quote-bottom{
+    position:absolute;
+    left:18mm;
+    right:18mm;
+    bottom:20mm;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:30px;
 }
 
 .quote-notice{
-    color:#666;
-    font-size:12px;
-    line-height:1.6;
-    margin-bottom:20px;
+    max-width:430px;
+    color:#777;
+    font-size:10px;
+    line-height:1.7;
+}
+
+.quote-notice p{
+    margin:0 0 7px;
+}
+
+.quote-sign{
+    font-size:13px;
+    letter-spacing:.28em;
+    color:#333;
+    white-space:nowrap;
+}
+
+.quote-close,
+.quote-print{
+    position:fixed;
+    right:24px;
+    border:none;
+    border-radius:999px;
+    padding:11px 16px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.quote-close{
+    top:24px;
+    background:#eee;
+    color:#111;
 }
 
 .quote-print{
-    width:100%;
-    border:none;
-    border-radius:16px;
+    top:76px;
     background:#111;
     color:#fff;
-    padding:16px;
-    font-weight:900;
-    cursor:pointer;
+}
+
+@media print{
+    @page{
+        size:A4;
+        margin:0;
+    }
+
+    html,
+    body{
+        margin:0;
+        padding:0;
+        background:#fff;
+        overflow:hidden;
+    }
+
+    body *{
+        visibility:hidden;
+    }
+
+    #quoteSheet,
+    #quoteSheet *{
+        visibility:visible;
+    }
+
+    #quoteSheet{
+        display:block !important;
+        position:absolute;
+        inset:0;
+        background:#fff;
+        padding:0;
+        overflow:hidden;
+    }
+
+    .quote-paper{
+        width:210mm;
+        min-height:297mm;
+        margin:0;
+        box-shadow:none;
+    }
+
+    .quote-close,
+    .quote-print{
+        display:none !important;
+    }
 }
 
 @media print{
@@ -506,7 +609,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 <body>
 <main class="wrap">
   <section class="hero">
-    <div class="brand"><img class="brand-logo" src="images/logo.png" alt="design sopher 로고" onload="this.parentElement.classList.add('has-logo')" onerror="this.style.display='none'"><span class="brand-text">designsopher</span></div>
+    <div class="brand"><img class="brand-logo" src="images/logo_w.png" alt="design sopher 로고" onload="this.parentElement.classList.add('has-logo')" onerror="this.style.display='none'"><span class="brand-text">designsopher</span></div>
     <h1>패키지 디자인<br>견적 상담 페이지</h1>
     <p>브랜드와 제품의 첫인상을 만드는 패키지 디자인. </p>
     <p>진행하려는 패키지 조건을 선택하시면 예상 디자인 비용을 바로 확인할 수 있습니다. </p>
@@ -751,32 +854,71 @@ ${estimate}
 </script>
 <script>
 function openQuoteSheet(){
-    const packageTypes = Array.from(
-        document.querySelectorAll('input[name="package"]:checked')
-    ).map(el => el.dataset.name).join(', ') || '패키지 미선택';
-
-    const additionalDesigns = Number(document.getElementById('conceptCount')?.innerText || 0);
-    const totalConcepts = additionalDesigns + 1;
-
-    const communication =
-        document.querySelector('input[name="meeting"]:checked')?.dataset.name || '이메일 / 메신저';
-
-    const total =
-        document.getElementById('totalPrice')?.innerText.trim() || '0원';
-
-    const conceptPrice =
-        document.getElementById('conceptText')?.innerText.trim() || '0원';
-
     const today = new Date();
-const dateText = today.toLocaleDateString('ko-KR');
+    const dateText = today.toLocaleDateString('ko-KR');
 
-document.getElementById('quoteDate').innerText = dateText;
+    const packageInputs = Array.from(
+        document.querySelectorAll('input[name="package"]:checked')
+    );
 
-    document.getElementById('quotePackages').innerText = packageTypes;
-    document.getElementById('quoteConcepts').innerText = `${totalConcepts}안`;
-    document.getElementById('quoteConceptPrice').innerText = conceptPrice;
-    document.getElementById('quoteMeeting').innerText = communication;
-    document.getElementById('quoteTotal').innerText = total;
+    const meetingInput = document.querySelector('input[name="meeting"]:checked');
+
+    const rows = [];
+
+    rows.push({
+        name:'기본 디자인 비용',
+        price:BASE_PRICE,
+        qty:1,
+        unit:'식',
+        sum:BASE_PRICE
+    });
+
+    packageInputs.forEach(input=>{
+        rows.push({
+            name:input.dataset.name,
+            price:Number(input.value),
+            qty:1,
+            unit:'개',
+            sum:Number(input.value)
+        });
+    });
+
+    if(conceptCount > 0){
+        rows.push({
+            name:'추가 디자인 시안',
+            price:CONCEPT_PRICE,
+            qty:conceptCount,
+            unit:'안',
+            sum:CONCEPT_PRICE * conceptCount
+        });
+    }
+
+    if(meetingInput && Number(meetingInput.value) > 0){
+        rows.push({
+            name:meetingInput.dataset.name,
+            price:Number(meetingInput.value),
+            qty:1,
+            unit:'회',
+            sum:Number(meetingInput.value)
+        });
+    }
+
+    const subtotal = rows.reduce((sum,row)=>sum + row.sum,0);
+
+    document.getElementById('quoteDate').innerText = dateText;
+    document.getElementById('quoteTotalTop').innerText = formatWon(subtotal);
+    document.getElementById('quoteSubtotal').innerText = formatWon(subtotal);
+    document.getElementById('quoteTotalBottom').innerText = formatWon(subtotal);
+
+    document.getElementById('quoteRows').innerHTML = rows.map(row=>`
+        <tr>
+            <td>${row.name}</td>
+            <td>${formatWon(row.price)}</td>
+            <td>${row.qty}</td>
+            <td>${row.unit}</td>
+            <td>${formatWon(row.sum)}</td>
+        </tr>
+    `).join('');
 
     document.getElementById('quoteSheet').classList.add('show');
 }
@@ -786,100 +928,66 @@ function closeQuoteSheet(){
 }
 </script>
   
-  <div id="quoteSheet" class="quote-sheet">
+ <div id="quoteSheet" class="quote-sheet">
   <div class="quote-paper">
 
-    <div class="quote-head">
+    <div class="quote-doc-title">Estimate.</div>
+
+    <div class="quote-top">
       <div>
-        <img src="images/logo.png" alt="Design Sopher" class="quote-logo">
-        <h2>패키지 디자인 예상 견적서</h2>
-        <p>본 견적서는 참고용 예상 견적서입니다.</p>
+        <h4>Provider info.</h4>
+        <p>Design Sopher</p>
+        <p>Package Design Studio</p>
+        <p>opticalartt@gmail.com</p>
       </div>
 
-      <button onclick="closeQuoteSheet()" class="quote-close">
-        닫기
-      </button>
-    </div>
-
-    <div class="quote-meta">
       <div>
-        <span>견적일자</span>
-        <strong id="quoteDate"></strong>
+        <h4>Date</h4>
+        <p id="quoteDate"></p>
+      </div>
+
+      <div>
+        <h4>Client info.</h4>
+        <p>견적 계산 고객</p>
+      </div>
+
+      <div class="quote-total-box">
+        <h4>Total</h4>
+        <strong id="quoteTotalTop">0원</strong>
       </div>
     </div>
 
-    <table class="quote-table">
-      <tr>
-        <th>항목</th>
-        <th>내용</th>
-      </tr>
-
-      <tr>
-        <td>패키지 종류</td>
-        <td id="quotePackages"></td>
-      </tr>
-
-      <tr>
-        <td>기본 디자인 비용</td>
-        <td>500,000원</td>
-      </tr>
-
-      <tr>
-        <td>총 디자인 시안</td>
-        <td id="quoteConcepts"></td>
-      </tr>
-
-      <tr>
-        <td>추가 시안 비용</td>
-        <td id="quoteConceptPrice"></td>
-      </tr>
-
-      <tr>
-        <td>커뮤니케이션 방식</td>
-        <td id="quoteMeeting"></td>
-      </tr>
-
-      <tr class="quote-total">
-        <td>예상 견적 합계</td>
-        <td id="quoteTotal"></td>
-      </tr>
+    <table class="quote-list">
+      <thead>
+        <tr>
+          <th>Contents</th>
+          <th>Each Price</th>
+          <th>Qty</th>
+          <th>Unit</th>
+          <th>Sum</th>
+        </tr>
+      </thead>
+      <tbody id="quoteRows"></tbody>
     </table>
 
-    <div class="quote-company">
-      <h3>DESIGN SOPHER</h3>
-      <p>패키지 디자인 전문 스튜디오</p>
-
-      <dl>
-        <div>
-          <dt>E-mail</dt>
-          <dd>opticalartt@gmail.com</dd>
-        </div>
-
-        <div>
-          <dt>KakaoTalk</dt>
-          <dd>카카오톡 채널 문의</dd>
-        </div>
-
-        <div>
-          <dt>Website</dt>
-          <dd>designsopher.github.io/designsopher</dd>
-        </div>
-      </dl>
+    <div class="quote-summary">
+      <div><span>Sub total</span><strong id="quoteSubtotal">0원</strong></div>
+      <div><span>Total</span><strong id="quoteTotalBottom">0원</strong></div>
     </div>
 
-    <div class="quote-notice">
-      <p>본 견적서는 예상 견적 계산 결과이며, 실제 작업 범위 및 디자인 난이도에 따라 변경될 수 있습니다.</p>
+    <div class="quote-bottom">
+      <div class="quote-notice">
+        <p>본 견적서는 예상 견적 계산 결과이며, 실제 작업 범위 및 디자인 난이도에 따라 변경될 수 있습니다.</p>
+        <p>기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
+        <p>기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
+        <p>정확한 견적은 상담 후 최종 안내됩니다.</p>
+      </div>
 
-      <p>기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
-
-      <p>기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
-
-      <p>정확한 견적은 상담 후 최종 안내됩니다.</p>
+      <div class="quote-sign">DESIGN SOPHER</div>
     </div>
 
-    <button class="quote-print" onclick="window.print()">
-      PDF로 저장하기
-    </button>
+    <button class="quote-close" onclick="closeQuoteSheet()">닫기</button>
+    <button class="quote-print" onclick="window.print()">PDF로 저장하기</button>
 
   </div>
 </div>
