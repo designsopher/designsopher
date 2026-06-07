@@ -1009,7 +1009,52 @@ function calculate(){
   if(document.getElementById('totalPriceBottom')){
     document.getElementById('totalPriceBottom').textContent = formatWon(total);
   }
+if(document.getElementById('previewRows')){
+  const rows = [];
 
+  rows.push({
+    name:'기본 디자인 비용',
+    price:BASE_PRICE,
+    qty:1,
+    sum:BASE_PRICE
+  });
+
+  packageInputs.forEach(input=>{
+    rows.push({
+      name:input.dataset.name,
+      price:Number(input.value),
+      qty:1,
+      sum:Number(input.value)
+    });
+  });
+
+  if(conceptCount > 0){
+    rows.push({
+      name:'추가 디자인 시안',
+      price:CONCEPT_PRICE,
+      qty:conceptCount,
+      sum:CONCEPT_PRICE * conceptCount
+    });
+  }
+
+  if(meetingPrice > 0){
+    rows.push({
+      name:meetingName,
+      price:meetingPrice,
+      qty:1,
+      sum:meetingPrice
+    });
+  }
+
+  document.getElementById('previewRows').innerHTML = rows.map(row=>`
+    <tr>
+      <td>${row.name}</td>
+      <td>${formatWon(row.price)}</td>
+      <td>${row.qty}</td>
+      <td>${formatWon(row.sum)}</td>
+    </tr>
+  `).join('');
+}
   updateCounterLevel();
 }
 
