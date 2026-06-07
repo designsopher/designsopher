@@ -265,9 +265,36 @@ background:var(--soft);
     background:#b38b61;
 }
     .example-box{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;background:var(--soft);border-radius:18px;padding:14px;margin-bottom:15px}.example-box p{margin:0;color:var(--muted);font-size:13px}
-    .result-card{background:var(--accent);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}.estimate-price{font-size:35px;font-weight:900;letter-spacing:-.05em;margin-bottom:8px}.estimate-detail{color:rgba(255,255,255,.73);font-size:13px;margin-bottom:16px}.breakdown{background:rgba(255,255,255,.09);border-radius:18px;padding:13px;display:grid;gap:8px;margin-bottom:14px}.row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
-    .contact{display:block;width:100%;text-align:center;padding:15px 16px;background:#fff;color:var(--accent);border-radius:17px;text-decoration:none;font-weight:900;letter-spacing:-.02em}
-    .footer-note{color:var(--muted);font-size:12px;padding:14px 2px 0}.muted-small{color:var(--muted);font-size:12px;margin-top:10px}
+    .result-card{background:var(--accent);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}
+    .estimate-price{
+    font-size:52px;
+    font-weight:900;
+    letter-spacing:-0.06em;
+    line-height:1;
+}
+    .estimate-detail{color:rgba(255,255,255,.73);font-size:13px;margin-bottom:16px}.breakdown{background:rgba(255,255,255,.09);border-radius:18px;padding:13px;display:grid;gap:8px;margin-bottom:14px}.row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
+    .contact{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:15px 16px;
+    background:#fff;
+    color:var(--accent);
+    border-radius:17px;
+    text-decoration:none;
+    font-weight:900;
+    letter-spacing:-.02em;
+    font-size:16px;
+    border:none;
+}
+    .footer-note{color:var(--muted);font-size:12px;padding:14px 2px 0}
+    .muted-small{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:10px;
+    text-align:center;
+}
+    
     @media(min-width:700px){ .material-mini-grid{
         grid-template-columns:repeat(4,1fr);
     }.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}..brand-logo{max-width:210px;max-height:64px}}
@@ -407,17 +434,16 @@ background:var(--soft);
     </div>
   </section>
 
-  <section class="section">
+  
     <div class="result-card">
       <div class="estimate-label">예상 견적</div><div class=".estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
-     <button class="contact" onclick="copyEstimate()" style="margin-bottom:10px;border:none;cursor:pointer;">
+     <button class="contact" onclick="copyEstimate()" style="margin-bottom:10px;">
 📋 견적 내용 복사
 </button>
       <a class="contact" id="contactLink" href="#" target="_blank" rel="noopener">견적 문의하기</a>
       <div class="muted-small">문의 버튼을 누르면 카카오톡 채널 상담으로 연결됩니다.</div>
     </div>
-  </section>
 
   <p class="footer-note">※ 본 견적은 예상 견적이며, 제품 특성·디자인 난이도·작업 범위에 따라 변경될 수 있습니다. <br>
   ※ 기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.<br>
