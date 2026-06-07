@@ -585,19 +585,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
         grid-template-columns:repeat(4,1fr);
     }.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}..brand-logo{max-width:210px;max-height:64px}}
 
-  @media(max-width:700px){
 
-    .quote-sheet{
-        overflow:auto;
-        padding:12px;
-    }
-
-    .quote-paper{
-        transform:scale(.55);
-        transform-origin:top center;
-        margin:0 auto -350px;
-    }
-}
   
   </style>
 </head>
@@ -981,51 +969,6 @@ calculate();
   
 
 
-    <table class="quote-list">
-      <thead>
-        <tr>
-          <th>품목</th>
-          <th>단가</th>
-          <th>수량</th>
-          <th>금액</th>
-        </tr>
-      </thead>
-      <tbody id="quoteRows"></tbody>
-    </table>
-
-  <div class="quote-summary">
-  <div>
-    <span>공급가액</span>
-    <strong id="quoteSubtotal">0원</strong>
-  </div>
-
-  <div>
-    <span>부가세(VAT)</span>
-    <strong id="quoteVat">0원</strong>
-  </div>
-
-  <div>
-    <span>합계</span>
-    <strong id="quoteTotalBottom">0원</strong>
-  </div>
-</div>
-
-    <div class="quote-bottom">
-      <div class="quote-notice">
-        <p>본 견적서는 예상 견적 계산 결과이며, 실제 작업 범위 및 디자인 난이도에 따라 변경될 수 있습니다.</p>
-        <p>기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
-        <p>기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
-        <p>부가세(VAT 10%)가 포함된 예상 견적입니다.</p>
-        <p>정확한 견적은 상담 후 최종 안내됩니다.</p>
-      </div>
-
-<div class="quote-sign">
-  <img src="images/logo_b.png" alt="Design Sopher">
-</div>
-    </div>
-
-    <button class="quote-close" onclick="closeQuoteSheet()">닫기</button>
-    <button class="quote-print" onclick="window.print()">PDF로 저장하기</button>
 
   </div>
 </div>
