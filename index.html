@@ -168,7 +168,8 @@
 }
     .image-guide{background:#fff;border:1px dashed #cfc6bc;border-radius:18px;padding:14px 15px;color:var(--muted);font-size:12px;margin-bottom:14px}.image-guide code{color:var(--ink);background:var(--soft);padding:2px 5px;border-radius:6px;font-size:11px}
 .schedule-note{
-    margin-top:14px;
+    margin-top:8px;
+    margin-bottom:8px;
     color:var(--muted);
     font-size:12px;
     line-height:1.6;
@@ -274,7 +275,7 @@ background:var(--soft);
     .result-card{background:var(--accent);color:#fff;    text-align:right;
 border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}
 .estimate-price{
-    font-size:72px;
+    font-size:64px;
     font-weight:900;
     letter-spacing:-0.08em;
     line-height:0.95;
@@ -288,6 +289,15 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     margin-bottom:16px;
     text-align:right;
 }
+    .breakdown{
+    background:rgba(255,255,255,.09);
+    border-radius:18px;
+    padding:13px;
+    display:grid;
+    gap:8px;
+    margin-bottom:22px;
+}
+    
     .row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
     .contact{
     display:block;
@@ -454,7 +464,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     <div class="result-card">
       <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
-     <button class="contact" onclick="copyEstimate()" style="margin-bottom:10px;">
+     <button class="contact" onclick="copyEstimate()" style="margin-bottom:14px;">
 📋 견적 내용 복사
 </button>
       <a class="contact" id="contactLink" href="#" target="_blank" rel="noopener">견적 문의하기</a>
