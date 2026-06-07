@@ -181,6 +181,25 @@ background:var(--soft);
 }
     .option-left{display:flex;align-items:center;gap:10px;min-width:0}.option-name{font-weight:800;letter-spacing:-.02em}.option-price{color:var(--muted);font-size:13px;white-space:nowrap}
     .counter{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--soft);border-radius:18px;padding:16px}.counter-text strong{display:block;margin-bottom:3px}.counter-text span{color:var(--muted);font-size:13px}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-size:20px;line-height:1}.count{min-width:26px;text-align:center;font-weight:900;font-size:18px}
+.counter.level-0{
+    background:#f0e9de;
+}
+
+.counter.level-1{
+    background:#e3d6c5;
+}
+
+.counter.level-2{
+    background:#d4c0a7;
+}
+
+.counter.level-3{
+    background:#c4a17b;
+}
+
+.counter.level-4{
+    background:#b38b61;
+}
     .example-box{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;background:var(--soft);border-radius:18px;padding:14px;margin-bottom:15px}.example-box p{margin:0;color:var(--muted);font-size:13px}
     .result-card{background:var(--accent);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}.estimate-price{font-size:35px;font-weight:900;letter-spacing:-.05em;margin-bottom:8px}.estimate-detail{color:rgba(255,255,255,.73);font-size:13px;margin-bottom:16px}.breakdown{background:rgba(255,255,255,.09);border-radius:18px;padding:13px;display:grid;gap:8px;margin-bottom:14px}.row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
     .contact{display:block;width:100%;text-align:center;padding:15px 16px;background:#fff;color:var(--accent);border-radius:17px;text-decoration:none;font-weight:900;letter-spacing:-.02em}
@@ -313,9 +332,32 @@ background:var(--soft);
     document.getElementById('contactLink').href=KAKAO_CHANNEL_URL;
   }
   document.querySelectorAll('input').forEach(input=>input.addEventListener('change',calculate));
-  document.getElementById('minusConcept').addEventListener('click',()=>{conceptCount=Math.max(0,conceptCount-1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
-  document.getElementById('plusConcept').addEventListener('click',()=>{conceptCount=Math.min(10,conceptCount+1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
+  function updateCounterLevel(){
+  const counter = document.querySelector('.counter');
+
+  counter.classList.remove(
+    'level-0',
+    'level-1',
+    'level-2',
+    'level-3',
+    'level-4'
+  );
+
+  counter.classList.add(`level-${Math.min(conceptCount,4)}`);
+}
+ document.getElementById('minusConcept').addEventListener('click',()=>{
+  conceptCount=Math.max(0,conceptCount-1);
+  document.getElementById('conceptCount').textContent=conceptCount;
+  updateCounterLevel();
   calculate();
+});
+
+document.getElementById('plusConcept').addEventListener('click',()=>{
+  conceptCount=Math.min(10,conceptCount+1);
+  document.getElementById('conceptCount').textContent=conceptCount;
+  updateCounterLevel();
+  calculate();
+});
 </script>
 <script>
 function copyEstimate(){
