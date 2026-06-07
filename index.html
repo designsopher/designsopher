@@ -962,7 +962,9 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
   <div class="estimate-doc-top">
     <div>
       <strong>공급자</strong>
-      <p>디자인소퍼 Design Sopher</p>
+      <p>디자인소퍼 </p>
+      <p>Designsopher</p>
+    
       <p>designsopher@gmail.com</p>
     </div>
 
@@ -1140,19 +1142,27 @@ function copyEstimate(){
 
   const estimate = document.getElementById('totalPrice')?.innerText.trim() || '';
 
-  const text =
-`안녕하세요.
+const text =
+`━━━━━━━━━━━━━━━━
+Design Sopher
+패키지 디자인 예상 견적
+━━━━━━━━━━━━━━━━
 
-패키지 종류 : ${packageTypes}
+패키지 종류
+- ${packageTypes}
 
-추가 시안 : ${conceptCount}개
-총 디자인 시안 : ${conceptCount + 1}안
+디자인 시안
+- 기본 1안
+- 추가 ${conceptCount}안
+- 총 ${conceptCount + 1}안
 
-커뮤니케이션 :
-${communication}
+커뮤니케이션 방식
+- ${communication}
 
-예상 견적 :
-${estimate}
+예상 견적
+- ${estimate} (VAT 포함)
+
+※ 본 견적은 예상 견적이며, 작업 범위 및 디자인 난이도에 따라 변경될 수 있습니다.
 
 상담 요청드립니다.`;
 
