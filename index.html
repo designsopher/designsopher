@@ -55,12 +55,9 @@
 
 .material-thumb{
     width:100%;
-    height:100%;
+    aspect-ratio:1 / 1;
     border-radius:16px;
     background:var(--soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
     overflow:hidden;
     position:relative;
     margin-bottom:12px;
@@ -100,7 +97,14 @@
     .package-grid{display:grid;grid-template-columns:1fr;gap:10px}..package-card{
     display:block;
     padding:16px;padding:12px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;transition:.15s}.package-card:hover{border-color:#bcb1a4;transform:translateY(-1px)}
-    .thumb{width:100%;height:180px;margin-bottom:12px;border-radius:16px;background:var(--soft);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.thumb.has-image .fallback{display:none}.svg-shape{width:74px;height:64px}
+.thumb{
+    width:100%;
+    aspect-ratio:1 / 1;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    margin-bottom:12px;
+}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.thumb.has-image .fallback{display:none}.svg-shape{width:74px;height:64px}
     .pkg-info{display:flex;align-items:center;justify-content:space-between;gap:10px}.pkg-title{display:flex;gap:8px;align-items:center;font-weight:850}.pkg-price{color:var(--muted);font-size:13px;white-space:nowrap}input{accent-color:var(--accent)}
     .options{display:grid;gap:10px}.option{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:13px 14px;border:1px solid var(--line);border-radius:17px;cursor:pointer;background:#fff;transition:.15s}.option:hover{border-color:#bcb1a4;transform:translateY(-1px)}.option-left{display:flex;align-items:center;gap:10px;min-width:0}.option-name{font-weight:800;letter-spacing:-.02em}.option-price{color:var(--muted);font-size:13px;white-space:nowrap}
     .counter{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--soft);border-radius:18px;padding:16px}.counter-text strong{display:block;margin-bottom:3px}.counter-text span{color:var(--muted);font-size:13px}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-size:20px;line-height:1}.count{min-width:26px;text-align:center;font-weight:900;font-size:18px}
