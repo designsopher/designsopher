@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>design sopher 패키지 디자인 견적 상담</title>
+  <style>
+    :root{
+      --bg:#f6f2ea; --card:#fff; --ink:#161514; --muted:#7b746b; --line:#e3dcd2;
+      --soft:#f0e9de; --accent:#111; --warm:#c4a17b; --green:#6d7d67;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+    .wrap{width:min(860px,100%);margin:0 auto;padding:18px 16px 56px}
+    .hero{background:var(--accent);color:#fff;border-radius:30px;padding:28px 22px;margin:10px 0 16px;overflow:hidden;position:relative}
+    .hero:after{content:"";position:absolute;width:230px;height:230px;right:-95px;top:-90px;border-radius:50%;background:rgba(255,255,255,.09)}
+    .brand{margin-bottom:64px;position:relative;z-index:1;display:inline-flex;align-items:center;min-height:34px}
+    .brand-logo{max-width:170px;max-height:54px;display:block;object-fit:contain}.brand-text{font-size:13px;letter-spacing:.17em;text-transform:lowercase;color:rgba(255,255,255,.68)}.brand.has-logo .brand-text{display:none}
+    h1{margin:0 0 14px;font-size:35px;line-height:1.08;letter-spacing:-.06em;position:relative;z-index:1}
+    .hero p{margin:0;color:rgba(255,255,255,.75);font-size:15px;position:relative;z-index:1}
+    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;position:relative;z-index:1}
+    .btn{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:16px;text-decoration:none;font-weight:850;letter-spacing:-.02em;border:0;cursor:pointer;font-family:inherit}
+    .btn.primary{background:#fff;color:#111}.btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .notice{background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px 16px;color:var(--muted);font-size:13px;margin:12px 0}
+    .section{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin:14px 0}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+    h2{margin:0;font-size:20px;letter-spacing:-.04em}.eyebrow{margin:0 0 5px;color:var(--warm);font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    .required{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap}
+    .desc{margin:-4px 0 16px;color:var(--muted);font-size:13px}.subdesc{margin:0;color:var(--muted);font-size:13px}
+    .grid{display:grid;gap:10px}.info-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .info-card{background:var(--soft);border-radius:18px;padding:16px}.info-card strong{display:block;margin-bottom:6px}.info-card p{margin:0;color:var(--muted);font-size:13px}
+    .base-box{background:var(--soft);border-radius:20px;padding:18px}.base-price{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding-bottom:13px;margin-bottom:13px;border-bottom:1px solid rgba(0,0,0,.08)}
+    .base-price span{color:var(--muted);font-size:13px}.base-price strong{font-size:25px;letter-spacing:-.04em}
+    ul{margin:0;padding-left:18px;color:#3d3934;font-size:14px}li+li{margin-top:4px}
+    .deliverables{display:grid;grid-template-columns:1fr;gap:10px}.deliverable{display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:#fff}.material-thumb{width:86px;height:76px;border-radius:15px;background:var(--soft);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.material-thumb img{width:100%;height:100%;object-fit:cover;display:block}.material-thumb .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.material-thumb.has-image .fallback{display:none}.num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex:0 0 auto;margin-bottom:6px}.deliverable strong{display:block;margin-bottom:3px}.deliverable span{display:block;color:var(--muted);font-size:13px}
+    .image-guide{background:#fff;border:1px dashed #cfc6bc;border-radius:18px;padding:14px 15px;color:var(--muted);font-size:12px;margin-bottom:14px}.image-guide code{color:var(--ink);background:var(--soft);padding:2px 5px;border-radius:6px;font-size:11px}.schedule-note{margin-top:13px;background:var(--soft);border-radius:18px;padding:14px 15px;color:#3d3934;font-size:13px;font-weight:750}
+    .package-grid{display:grid;grid-template-columns:1fr;gap:10px}.package-card{display:grid;grid-template-columns:88px 1fr;gap:13px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;transition:.15s}.package-card:hover{border-color:#bcb1a4;transform:translateY(-1px)}
+    .thumb{width:88px;height:78px;border-radius:16px;background:var(--soft);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.thumb.has-image .fallback{display:none}.svg-shape{width:74px;height:64px}
+    .pkg-info{display:flex;align-items:center;justify-content:space-between;gap:10px}.pkg-title{display:flex;gap:8px;align-items:center;font-weight:850}.pkg-price{color:var(--muted);font-size:13px;white-space:nowrap}input{accent-color:var(--accent)}
+    .options{display:grid;gap:10px}.option{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:13px 14px;border:1px solid var(--line);border-radius:17px;cursor:pointer;background:#fff;transition:.15s}.option:hover{border-color:#bcb1a4;transform:translateY(-1px)}.option-left{display:flex;align-items:center;gap:10px;min-width:0}.option-name{font-weight:800;letter-spacing:-.02em}.option-price{color:var(--muted);font-size:13px;white-space:nowrap}
+    .counter{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--soft);border-radius:18px;padding:16px}.counter-text strong{display:block;margin-bottom:3px}.counter-text span{color:var(--muted);font-size:13px}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-size:20px;line-height:1}.count{min-width:26px;text-align:center;font-weight:900;font-size:18px}
+    .example-box{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;background:var(--soft);border-radius:18px;padding:14px;margin-bottom:15px}.example-box p{margin:0;color:var(--muted);font-size:13px}
+    .result-card{background:var(--accent);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}.estimate-price{font-size:35px;font-weight:900;letter-spacing:-.05em;margin-bottom:8px}.estimate-detail{color:rgba(255,255,255,.73);font-size:13px;margin-bottom:16px}.breakdown{background:rgba(255,255,255,.09);border-radius:18px;padding:13px;display:grid;gap:8px;margin-bottom:14px}.row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
+    .contact{display:block;width:100%;text-align:center;padding:15px 16px;background:#fff;color:var(--accent);border-radius:17px;text-decoration:none;font-weight:900;letter-spacing:-.02em}
+    .footer-note{color:var(--muted);font-size:12px;padding:16px 2px 0}.muted-small{color:var(--muted);font-size:12px;margin-top:10px}
+    @media(min-width:700px){.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}.package-card{grid-template-columns:104px 1fr}.thumb{width:104px;height:88px}.brand-logo{max-width:210px;max-height:64px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div class="brand"><img class="brand-logo" src="images/logo.png" alt="design sopher 로고" onload="this.parentElement.classList.add('has-logo')" onerror="this.style.display='none'"><span class="brand-text">design sopher</span></div>
+    <h1>패키지 디자인<br>견적 상담 페이지</h1>
+    <p>브랜드와 제품의 첫인상을 만드는 패키지 디자인. 조건을 선택하면 예상 견적과 준비 자료를 한 번에 확인할 수 있습니다.</p>
+    <div class="hero-actions"><a class="btn primary" href="#quote">견적 계산하기</a><a class="btn ghost" href="#prepare">준비 자료 보기</a></div>
+  </section>
+
+  <section class="notice">진행하려는 패키지 조건을 선택하시면 예상 디자인 비용을 바로 확인할 수 있습니다. 아래 금액은 예상 견적이며, 제품 특성·일정·난이도에 따라 최종 견적은 조정될 수 있습니다.</section>
+
+  <section class="section">
+    <p class="eyebrow">Process</p>
+    <div class="section-title"><h2>진행 흐름</h2></div>
+    <div class="info-grid">
+      <div class="info-card"><strong>1. 자료 전달</strong><p>칼선, 로고, 표기 정보, 원하는 디자인 방향을 전달해주세요.</p></div>
+      <div class="info-card"><strong>2. 방향 정리</strong><p>제품 특성과 브랜드 톤에 맞는 디자인 방향을 정리합니다.</p></div>
+      <div class="info-card"><strong>3. 디자인 제작</strong><p>기본 1안 기준으로 패키지 디자인을 제작합니다.</p></div>
+      <div class="info-card"><strong>4. 수정 및 발주 데이터</strong><p>수정 반영 후 인쇄용 발주 데이터를 정리합니다.</p></div>
+    </div>
+    <div class="schedule-note">기본 일정은 약 3주이며, 수정 및 심의 진행 상황에 따라 일정은 변경될 수 있습니다.</div>
+  </section>
+
+  <section class="section" id="prepare">
+    <p class="eyebrow">Before Start</p>
+    <div class="section-title"><h2>고객님이 전달해주셔야 하는 자료</h2></div>
+    <p class="desc">아래 자료가 준비되어 있으면 견적 확인과 작업 진행이 더 빠르고 정확해집니다.</p>
+    <div class="image-guide">자료 예시 이미지는 <code>images</code> 폴더에 <code>dieline.jpg</code>, <code>logo-ai.jpg</code>, <code>package-info.jpg</code>, <code>design-direction.jpg</code> 파일명으로 넣으면 표시됩니다.</div>
+    <div class="deliverables">
+      <div class="deliverable"><span class="material-thumb"><img src="images/dieline.jpg" alt="칼선 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M18 14h44v42H18z" fill="#fff" stroke="#111" stroke-width="3" stroke-dasharray="6 4"/><path d="M28 14v42M52 14v42M18 27h44M18 45h44" fill="none" stroke="#111" stroke-width="2"/></svg></span></span><div><span class="num">1</span><strong>칼선</strong><span>인쇄소 또는 제조사에서 받은 패키지 전개도 파일</span></div></div>
+      <div class="deliverable"><span class="material-thumb"><img src="images/logo-ai.jpg" alt="로고 AI 파일 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="15" y="14" width="50" height="42" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><text x="40" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#111">AI</text></svg></span></span><div><span class="num">2</span><strong>로고 AI 파일</strong><span>브랜드 로고 원본 파일. AI, EPS, PDF 권장</span></div></div>
+      <div class="deliverable"><span class="material-thumb"><img src="images/package-info.jpg" alt="패키지 정보 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="16" y="12" width="48" height="46" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><line x1="26" y1="25" x2="54" y2="25" stroke="#111" stroke-width="3"/><line x1="26" y1="36" x2="54" y2="36" stroke="#111" stroke-width="2"/><line x1="26" y1="45" x2="48" y2="45" stroke="#111" stroke-width="2"/></svg></span></span><div><span class="num">3</span><strong>패키지에 들어갈 정보</strong><span>주표시면, 정보표시면에 들어갈 제품명·성분·용량·표기 문구 등</span></div></div>
+      <div class="deliverable"><span class="material-thumb"><img src="images/design-direction.jpg" alt="디자인 방향 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="12" y="17" width="25" height="36" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><rect x="43" y="17" width="25" height="36" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="25" cy="31" r="5" fill="none" stroke="#111" stroke-width="2"/><path d="M48 43h15" stroke="#111" stroke-width="3"/></svg></span></span><div><span class="num">4</span><strong>원하는 디자인 방향</strong><span>참고 이미지, 선호 컬러, 브랜드 무드, 피하고 싶은 스타일</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="eyebrow">Included</p>
+    <div class="section-title"><h2>기본 제공사항</h2></div>
+    <div class="base-box">
+      <div class="base-price"><span>기본 디자인 비용</span><strong>500,000원</strong></div>
+      <ul>
+        <li>아이데이션</li><li>디자인 1안</li><li>발주 데이터 제작</li><li>기본 디자인 수정 2회</li><li>문구 수정 5회</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="quote">
+    <p class="eyebrow">Quote Calculator</p>
+    <div class="section-title"><h2>패키지 종류</h2><span class="required">필수 선택</span></div>
+    <p class="desc">제작하려는 패키지 형태를 모두 선택해주세요. 여러 형태를 함께 진행할 수 있습니다.</p>
+    <div class="image-guide">로고 이미지는 <code>images/logo.png</code>로 넣어주세요. 패키지 예시 이미지는 <code>images</code> 폴더에 <code>ptp.jpg</code>, <code>stick.jpg</code>, <code>label.jpg</code>, <code>pouch.jpg</code>, <code>box.jpg</code>, <code>hardcase.jpg</code> 파일명으로 넣으면 표시됩니다.</div>
+    <div class="package-grid">
+      <label class="package-card"><span class="thumb"><img src="images/ptp.jpg" alt="PTP 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="10" y="18" width="60" height="34" rx="6" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="26" cy="35" r="6" fill="none" stroke="#111" stroke-width="3"/><circle cx="40" cy="35" r="6" fill="none" stroke="#111" stroke-width="3"/><circle cx="54" cy="35" r="6" fill="none" stroke="#111" stroke-width="3"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="150000" data-name="PTP">PTP</span><span class="pkg-price">+150,000원</span></span></label>
+      <label class="package-card"><span class="thumb"><img src="images/stick.jpg" alt="스틱포 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="30" y="9" width="20" height="52" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><line x1="30" y1="20" x2="50" y2="20" stroke="#111" stroke-width="2"/><line x1="30" y1="50" x2="50" y2="50" stroke="#111" stroke-width="2"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="200000" data-name="스틱포">스틱포</span><span class="pkg-price">+200,000원</span></span></label>
+      <label class="package-card"><span class="thumb"><img src="images/label.jpg" alt="라벨 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M23 18h34l7 9v25l-7 8H23l-7-8V27z" fill="#fff" stroke="#111" stroke-width="3"/><line x1="27" y1="35" x2="53" y2="35" stroke="#111" stroke-width="3"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="250000" data-name="라벨">라벨</span><span class="pkg-price">+250,000원</span></span></label>
+      <label class="package-card"><span class="thumb"><img src="images/pouch.jpg" alt="파우치 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M22 11h36l5 49H17z" fill="#fff" stroke="#111" stroke-width="3"/><path d="M26 20c8 4 20 4 28 0" fill="none" stroke="#111" stroke-width="3"/><line x1="25" y1="42" x2="55" y2="42" stroke="#111" stroke-width="3"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="300000" data-name="파우치">파우치</span><span class="pkg-price">+300,000원</span></span></label>
+      <label class="package-card"><span class="thumb"><img src="images/box.jpg" alt="단상자 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M20 19h36l8 8v31H20z" fill="#fff" stroke="#111" stroke-width="3"/><path d="M56 19v8h8" fill="none" stroke="#111" stroke-width="3"/><line x1="28" y1="38" x2="53" y2="38" stroke="#111" stroke-width="3"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="300000" data-name="단상자">단상자</span><span class="pkg-price">+300,000원</span></span></label>
+      <label class="package-card"><span class="thumb"><img src="images/hardcase.jpg" alt="하드케이스 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="16" y="18" width="48" height="36" rx="8" fill="#fff" stroke="#111" stroke-width="3"/><rect x="22" y="24" width="36" height="24" rx="5" fill="none" stroke="#111" stroke-width="2"/></svg></span></span><span class="pkg-info"><span class="pkg-title"><input type="checkbox" name="package" value="300000" data-name="하드케이스">하드케이스</span><span class="pkg-price">+300,000원</span></span></label>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title"><h2>디자인 시안 추가</h2></div>
+    <div class="counter"><div class="counter-text"><strong>추가 시안 수</strong><span>기본 1안 제공 / 1안 추가당 200,000원</span></div><div class="stepper"><button type="button" id="minusConcept">−</button><span class="count" id="conceptCount">0</span><button type="button" id="plusConcept">+</button></div></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title"><h2>커뮤니케이션 방식</h2></div>
+    <div class="options">
+      <label class="option"><span class="option-left"><input type="radio" name="meeting" value="0" data-name="이메일 / 메신저" checked><span class="option-name">이메일 / 메신저</span></span><span class="option-price">기본</span></label>
+      <label class="option"><span class="option-left"><input type="radio" name="meeting" value="30000" data-name="온라인 미팅 1회"><span class="option-name">온라인 미팅 1회</span></span><span class="option-price">+30,000원</span></label>
+      <label class="option"><span class="option-left"><input type="radio" name="meeting" value="100000" data-name="대면 미팅 1회"><span class="option-name">대면 미팅 1회</span></span><span class="option-price">+100,000원</span></label>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="result-card">
+      <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
+      <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
+      <a class="contact" id="contactLink" href="#" target="_blank" rel="noopener">견적 문의하기</a>
+      <div class="muted-small">문의 버튼을 누르면 카카오톡 채널 상담으로 연결됩니다.</div>
+    </div>
+  </section>
+
+  <p class="footer-note">※ 제품 특성·디자인 난이도·일정에 따라 최종 견적은 조정될 수 있습니다. 추가 수정이 발생할 경우 비용이 추가될 수 있습니다.</p>
+</main>
+<script>
+  const BASE_PRICE=500000, CONCEPT_PRICE=200000;
+  const KAKAO_CHANNEL_URL='https://pf.kakao.com/_YOUR_CHANNEL'; // 카카오톡 채널 주소로 교체해주세요.
+  let conceptCount=0;
+  const formatWon=num=>Math.round(num).toLocaleString('ko-KR')+'원';
+  const getChecked=name=>document.querySelector(`input[name="${name}"]:checked`);
+  const getCheckedAll=name=>Array.from(document.querySelectorAll(`input[name="${name}"]:checked`));
+  function calculate(){
+    const packageInputs=getCheckedAll('package'), meetingInput=getChecked('meeting');
+    const packagePrice=packageInputs.reduce((sum,input)=>sum+Number(input.value),0);
+    const packageName=packageInputs.length?packageInputs.map(input=>input.dataset.name).join(', '):'패키지 미선택';
+    const meetingPrice=Number(meetingInput.value), meetingName=meetingInput.dataset.name;
+    const basePackage=BASE_PRICE+packagePrice, conceptPrice=conceptCount*CONCEPT_PRICE, totalConcepts=1+conceptCount;
+    const total=basePackage+conceptPrice+meetingPrice;
+    let detail=`${packageName} / 총 디자인 시안 ${totalConcepts}안 기준 예상 금액입니다.`;
+    if(packageInputs.length===0) detail='패키지 종류를 1개 이상 선택해주세요.';
+    document.getElementById('totalPrice').textContent=formatWon(total);
+    document.getElementById('estimateDetail').textContent=detail;
+    document.getElementById('basePackageText').textContent=formatWon(basePackage);
+    document.getElementById('totalConceptText').textContent=`${totalConcepts}안`;
+    document.getElementById('conceptText').textContent=conceptCount===0?'0원':`${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
+    document.getElementById('meetingText').textContent=meetingName==='이메일 / 메신저'?'기본':`${meetingName} / ${formatWon(meetingPrice)}`;
+    document.getElementById('contactLink').href=KAKAO_CHANNEL_URL;
+  }
+  document.querySelectorAll('input').forEach(input=>input.addEventListener('change',calculate));
+  document.getElementById('minusConcept').addEventListener('click',()=>{conceptCount=Math.max(0,conceptCount-1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
+  document.getElementById('plusConcept').addEventListener('click',()=>{conceptCount=Math.min(10,conceptCount+1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
+  calculate();
+</script>
+</body>
+</html>
