@@ -854,7 +854,46 @@ function copyAndGoKakao(){
 }
 
 function printEstimate(){
-  window.print();
+
+  const printContents =
+    document.getElementById('estimateDocument').outerHTML;
+
+  const win = window.open('', '_blank');
+
+  win.document.write(`
+    <html>
+    <head>
+      <title>견적서</title>
+      <style>
+        body{
+          margin:20mm;
+          font-family:-apple-system,BlinkMacSystemFont,
+          "Pretendard","Noto Sans KR",sans-serif;
+        }
+
+        table{
+          width:100%;
+          border-collapse:collapse;
+        }
+
+        th,td{
+          border-bottom:1px solid #ddd;
+          padding:10px 0;
+        }
+      </style>
+    </head>
+    <body>
+      ${printContents}
+    </body>
+    </html>
+  `);
+
+  win.document.close();
+
+  setTimeout(()=>{
+      win.print();
+      win.close();
+  },500);
 }
 
 document.querySelectorAll('input').forEach(input=>{
