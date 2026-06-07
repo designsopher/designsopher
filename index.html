@@ -447,6 +447,21 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
 
 @media print{
+    @page{
+        size:A4;
+        margin:12mm;
+    }
+
+    html,
+    body{
+        width:210mm;
+        height:auto;
+        margin:0;
+        padding:0;
+        background:#fff;
+        overflow:hidden;
+    }
+
     body *{
         visibility:hidden;
     }
@@ -457,22 +472,30 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     }
 
     #quoteSheet{
-        display:block;
+        display:block !important;
         position:absolute;
-        inset:0;
+        left:0;
+        top:0;
+        width:100%;
+        height:auto;
+        min-height:0;
         background:#fff;
         padding:0;
+        overflow:visible;
     }
 
     .quote-paper{
         max-width:none;
+        width:100%;
+        margin:0;
+        padding:0;
         border-radius:0;
-        padding:32px;
+        box-shadow:none;
     }
 
     .quote-close,
     .quote-print{
-        display:none;
+        display:none !important;
     }
 }
     @media(min-width:700px){ .material-mini-grid{
@@ -745,9 +768,9 @@ function openQuoteSheet(){
         document.getElementById('conceptText')?.innerText.trim() || '0원';
 
     const today = new Date();
-    const dateText = today.toLocaleDateString('ko-KR');
+const dateText = today.toLocaleDateString('ko-KR');
 
-  
+document.getElementById('quoteDate').innerText = dateText;
 
     document.getElementById('quotePackages').innerText = packageTypes;
     document.getElementById('quoteConcepts').innerText = `${totalConcepts}안`;
