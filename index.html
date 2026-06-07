@@ -48,7 +48,7 @@
     .example-box{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;background:var(--soft);border-radius:18px;padding:14px;margin-bottom:15px}.example-box p{margin:0;color:var(--muted);font-size:13px}
     .result-card{background:var(--accent);color:#fff;border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.estimate-label{color:rgba(255,255,255,.68);font-size:14px;margin-bottom:4px}.estimate-price{font-size:35px;font-weight:900;letter-spacing:-.05em;margin-bottom:8px}.estimate-detail{color:rgba(255,255,255,.73);font-size:13px;margin-bottom:16px}.breakdown{background:rgba(255,255,255,.09);border-radius:18px;padding:13px;display:grid;gap:8px;margin-bottom:14px}.row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
     .contact{display:block;width:100%;text-align:center;padding:15px 16px;background:#fff;color:var(--accent);border-radius:17px;text-decoration:none;font-weight:900;letter-spacing:-.02em}
-    .footer-note{color:var(--muted);font-size:12px;padding:16px 2px 0}.muted-small{color:var(--muted);font-size:12px;margin-top:10px}
+    .footer-note{color:var(--muted);font-size:12px;padding:14px 2px 0}.muted-small{color:var(--muted);font-size:12px;margin-top:10px}
     @media(min-width:700px){.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}.package-card{grid-template-columns:104px 1fr}.thumb{width:104px;height:88px}.brand-logo{max-width:210px;max-height:64px}}
   </style>
 </head>
@@ -79,7 +79,6 @@
     <p class="eyebrow">Before Start</p>
     <div class="section-title"><h2>고객님이 전달해주셔야 하는 자료</h2></div>
     <p class="desc">아래 자료가 준비되어 있으면 견적 확인과 작업 진행이 더 빠르고 정확해집니다.</p>
-    <div class="image-guide">자료 예시 이미지는 <code>images</code> 폴더에 <code>dieline.png</code>, <code>logo-ai.png</code>, <code>package-info.png</code>, <code>design-direction.png</code> 파일명으로 넣으면 표시됩니다.</div>
     <div class="deliverables">
       <div class="deliverable"><span class="material-thumb"><img src="images/dieline.png" alt="칼선 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M18 14h44v42H18z" fill="#fff" stroke="#111" stroke-width="3" stroke-dasharray="6 4"/><path d="M28 14v42M52 14v42M18 27h44M18 45h44" fill="none" stroke="#111" stroke-width="2"/></svg></span></span><div><strong>1. 칼선</strong><span>인쇄소 또는 제조사에서 받은 패키지 전개도 파일</span></div></div>
       <div class="deliverable"><span class="material-thumb"><img src="images/logo-ai.png" alt="로고 AI 파일 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="15" y="14" width="50" height="42" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><text x="40" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#111">AI</text></svg></span></span><div><strong>2. 로고 AI 파일</strong><span>브랜드 로고 원본 파일. (ㅌㅋAI, EPS, PDF 권장)</span></div></div>
@@ -138,8 +137,11 @@
     </div>
   </section>
 
-  <p>※ 제품 특성·디자인 난이도·일정에 따라 최종 견적은 조정될 수 있습니다. </p>
-  <p>※ 추가 수정이 발생할 경우 비용이 추가될 수 있습니다.</p>
+  <p class="footer-note">※ 본 견적은 예상 견적이며, 제품 특성·디자인 난이도·작업 범위에 따라 변경될 수 있습니다. </p>
+  <p class="footer-note">※ 기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
+  <p class="footer-note">* 계산기에 없는 내용은 카카오톡 채널로 문의해 주세요. 진행 내용에 맞춰 자세히 안내해 드립니다.</p>
+  
+
 </main>
 <script>
   const BASE_PRICE=500000, CONCEPT_PRICE=200000;
@@ -162,7 +164,7 @@
     document.getElementById('basePackageText').textContent=formatWon(basePackage);
     document.getElementById('totalConceptText').textContent=`${totalConcepts}안`;
     document.getElementById('conceptText').textContent=conceptCount===0?'0원':`${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
-    document.getElementById('meetingText').textContent=meetingName==='이메일 / 메신저'?'기본':`${meetingName} / ${formatWon(meetingPrice)}`;
+    document.getElementById('meetingText').textContent=meetingName==='이메일 / 메신저'?'이메일 / 메신저':`${meetingName} / ${formatWon(meetingPrice)}`;
     document.getElementById('contactLink').href=KAKAO_CHANNEL_URL;
   }
   document.querySelectorAll('input').forEach(input=>input.addEventListener('change',calculate));
