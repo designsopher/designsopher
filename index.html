@@ -96,12 +96,21 @@
     font-size:13px;
 }
     .image-guide{background:#fff;border:1px dashed #cfc6bc;border-radius:18px;padding:14px 15px;color:var(--muted);font-size:12px;margin-bottom:14px}.image-guide code{color:var(--ink);background:var(--soft);padding:2px 5px;border-radius:6px;font-size:11px}.schedule-note{margin-top:13px;background:var(--soft);border-radius:18px;padding:14px 15px;color:#3d3934;font-size:13px;font-weight:750}
-    .package-grid{display:grid;grid-template-columns:1fr;gap:10px}..package-card{
-    display:block;
-    padding:16px;padding:12px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;transition:.15s}.package-card:hover{border-color:#bcb1a4;transform:translateY(-1px)}
+    .package-grid{display:grid;grid-template-columns:1fr;gap:10px}.
+    .package-card{
+    display:flex;
+    flex-direction:column;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    cursor:pointer;
+    background:#fff;
+    transition:.15s;
+    overflow:hidden;
+}
 .thumb{
     width:100%;
-    aspect-ratio:4 / 3;
+    aspect-ratio:1 / 1;
     border-radius:16px;
     background:var(--soft);
     display:flex;
@@ -110,9 +119,30 @@
     overflow:hidden;
     position:relative;
     margin-bottom:12px;
+    flex-shrink:0;
 }
     .thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.thumb.has-image .fallback{display:none}.svg-shape{width:74px;height:64px}
-    .pkg-info{display:flex;align-items:center;justify-content:space-between;gap:10px}.pkg-title{display:flex;gap:8px;align-items:center;font-weight:850}.pkg-price{color:var(--muted);font-size:13px;white-space:nowrap}input{accent-color:var(--accent)}
+.pkg-info{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    width:100%;
+}
+.pkg-title{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    font-weight:850;
+    min-width:0;
+}
+
+.pkg-price{
+    color:var(--muted);
+    font-size:13px;
+    white-space:nowrap;
+    flex-shrink:0;
+}
     .options{display:grid;gap:10px}.option{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:13px 14px;border:1px solid var(--line);border-radius:17px;cursor:pointer;background:#fff;transition:.15s}.option:hover{border-color:#bcb1a4;transform:translateY(-1px)}.option-left{display:flex;align-items:center;gap:10px;min-width:0}.option-name{font-weight:800;letter-spacing:-.02em}.option-price{color:var(--muted);font-size:13px;white-space:nowrap}
     .counter{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--soft);border-radius:18px;padding:16px}.counter-text strong{display:block;margin-bottom:3px}.counter-text span{color:var(--muted);font-size:13px}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-size:20px;line-height:1}.count{min-width:26px;text-align:center;font-weight:900;font-size:18px}
     .example-box{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;background:var(--soft);border-radius:18px;padding:14px;margin-bottom:15px}.example-box p{margin:0;color:var(--muted);font-size:13px}
@@ -151,7 +181,7 @@
     <p class="desc">아래 자료가 준비되어 있으면 견적 확인과 작업 진행이 더 빠르고 정확해집니다.</p>
     <div class="deliverables">
       <div class="deliverable"><span class="material-thumb"><img src="images/dieline.png" alt="칼선 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><path d="M18 14h44v42H18z" fill="#fff" stroke="#111" stroke-width="3" stroke-dasharray="6 4"/><path d="M28 14v42M52 14v42M18 27h44M18 45h44" fill="none" stroke="#111" stroke-width="2"/></svg></span></span><div><strong>1. 칼선</strong><span>인쇄소 또는 제조사에서 받은 패키지 전개도 파일</span></div></div>
-      <div class="deliverable"><span class="material-thumb"><img src="images/logo-ai.png" alt="로고 AI 파일 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="15" y="14" width="50" height="42" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><text x="40" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#111">AI</text></svg></span></span><div><strong>2. 로고 AI 파일</strong><span>브랜드 로고 원본 파일. (ㅌㅋAI, EPS, PDF 권장)</span></div></div>
+      <div class="deliverable"><span class="material-thumb"><img src="images/logo-ai.png" alt="로고 AI 파일 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="15" y="14" width="50" height="42" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><text x="40" y="42" text-anchor="middle" font-size="18" font-weight="900" fill="#111">AI</text></svg></span></span><div><strong>2. 로고 AI 파일</strong><span>브랜드 로고 원본 파일. (AI, EPS, PDF 권장)</span></div></div>
       <div class="deliverable"><span class="material-thumb"><img src="images/package-info.png" alt="패키지 정보 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="16" y="12" width="48" height="46" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><line x1="26" y1="25" x2="54" y2="25" stroke="#111" stroke-width="3"/><line x1="26" y1="36" x2="54" y2="36" stroke="#111" stroke-width="2"/><line x1="26" y1="45" x2="48" y2="45" stroke="#111" stroke-width="2"/></svg></span></span><div><strong>3. 패키지에 들어갈 정보</strong><span>주표시면, 정보표시면에 들어갈 제품명·성분·용량·표기 문구 등</span></div></div>
       <div class="deliverable"><span class="material-thumb"><img src="images/design-direction.png" alt="디자인 방향 예시" onload="this.parentElement.classList.add('has-image')" onerror="this.style.display='none'"><span class="fallback"><svg class="svg-shape" viewBox="0 0 80 70"><rect x="12" y="17" width="25" height="36" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><rect x="43" y="17" width="25" height="36" rx="4" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="25" cy="31" r="5" fill="none" stroke="#111" stroke-width="2"/><path d="M48 43h15" stroke="#111" stroke-width="3"/></svg></span></span><div><strong>4. 원하는 디자인 방향</strong><span>참고 이미지, 선호 컬러, 브랜드 무드, 피하고 싶은 스타일 등</span></div></div>
     </div>
