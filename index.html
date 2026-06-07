@@ -395,6 +395,8 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     text-align:right;
     letter-spacing:-0.06em;
     margin-top:28px;
+      white-space:nowrap;
+
 }
 
 .quote-list{
@@ -831,7 +833,7 @@ function openQuoteSheet(){
         name:'기본 디자인 비용',
         price:BASE_PRICE,
         qty:1,
-        unit:'식',
+      
         sum:BASE_PRICE
     });
 
@@ -840,7 +842,7 @@ function openQuoteSheet(){
             name:input.dataset.name,
             price:Number(input.value),
             qty:1,
-            unit:'개',
+           
             sum:Number(input.value)
         });
     });
@@ -850,7 +852,7 @@ function openQuoteSheet(){
             name:'추가 디자인 시안',
             price:CONCEPT_PRICE,
             qty:conceptCount,
-            unit:'안',
+            
             sum:CONCEPT_PRICE * conceptCount
         });
     }
@@ -860,7 +862,7 @@ function openQuoteSheet(){
             name:meetingInput.dataset.name,
             price:Number(meetingInput.value),
             qty:1,
-            unit:'회',
+            
             sum:Number(meetingInput.value)
         });
     }
@@ -906,19 +908,19 @@ function closeQuoteSheet(){
 
     <div class="quote-top">
       <div>
-        <h4>Provider info.</h4>
-        <p>디자인소퍼 Design Sopher</p>
+        <h4>Designsopher</h4>
+        <p>디자인소퍼</p>
         <p>Package Design Studio</p>
         <p>designsopher@gmail.com</p>
       </div>
 
       <div>
-        <h4>Date</h4>
+        <h4>견적 일자</h4>
         <p id="quoteDate"></p>
       </div>
 
       <div>
-        <h4>Client info.</h4>
+        <h4>수신</h4>
         <p>견적 계산 고객</p>
       </div>
 
@@ -932,10 +934,10 @@ function closeQuoteSheet(){
     <table class="quote-list">
       <thead>
         <tr>
-          <th>Contents</th>
-          <th>Each Price</th>
-          <th>Qty</th>
-          <th>Sum</th>
+          <th>품목</th>
+          <th>단가</th>
+          <th>수량</th>
+          <th>금액</th>
         </tr>
       </thead>
       <tbody id="quoteRows"></tbody>
