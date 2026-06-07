@@ -956,276 +956,128 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
 </main>
 <script>
-  const BASE_PRICE=500000, CONCEPT_PRICE=200000;
-  const KAKAO_CHANNEL_URL='https://open.kakao.com/o/s1BLcwyi'; // 카카오톡 채널 주소로 교체해주세요.
-  let conceptCount=0;
-  const formatWon=num=>Math.round(num).toLocaleString('ko-KR')+'원';
-  const getChecked=name=>document.querySelector(`input[name="${name}"]:checked`);
-  const getCheckedAll=name=>Array.from(document.querySelectorAll(`input[name="${name}"]:checked`));
-  function calculate(){
-    const packageInputs=getCheckedAll('package'), meetingInput=getChecked('meeting');
-    const packagePrice=packageInputs.reduce((sum,input)=>sum+Number(input.value),0);
-    const packageName=packageInputs.length?packageInputs.map(input=>input.dataset.name).join(', '):'패키지 미선택';
-    const meetingPrice=Number(meetingInput.value), meetingName=meetingInput.dataset.name;
-    const basePackage=BASE_PRICE+packagePrice, conceptPrice=conceptCount*CONCEPT_PRICE, totalConcepts=1+conceptCount;
-    const total=basePackage+conceptPrice+meetingPrice;
-    const supplyPrice = Math.round(total / 1.1);
-const vat = total - supplyPrice;
+const BASE_PRICE = 500000;
+const CONCEPT_PRICE = 200000;
+const KAKAO_CHANNEL_URL = 'https://open.kakao.com/o/s1BLcwyi';
 
-document.getElementById('supplyPriceText').textContent = formatWon(supplyPrice);
-document.getElementById('vatText').textContent = formatWon(vat);
-document.getElementById('totalPriceBottom').textContent = formatWon(total);
+let conceptCount = 0;
 
-const today = new Date();
-document.getElementById('previewDate').textContent = today.toLocaleDateString('ko-KR');
+const formatWon = num => Math.round(num).toLocaleString('ko-KR') + '원';
+const getChecked = name => document.querySelector(`input[name="${name}"]:checked`);
+const getCheckedAll = name => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`));
 
-const rows = [];
+function calculate(){
+  const packageInputs = getCheckedAll('package');
+  const meetingInput = getChecked('meeting');
 
-rows.push({
-    name:'기본 디자인 비용',
-    price:BASE_PRICE,
-    qty:1,
-    sum:BASE_PRICE
-});
+  const packagePrice = packageInputs.reduce((sum,input)=>sum + Number(input.value), 0);
+  const packageName = packageInputs.length
+    ? packageInputs.map(input=>input.dataset.name).join(', ')
+    : '패키지 미선택';
 
-packageInputs.forEach(input=>{
-    rows.push({
-        name:input.dataset.name,
-        price:Number(input.value),
-        qty:1,
-        sum:Number(input.value)
-    });
-});
+  const meetingPrice = meetingInput ? Number(meetingInput.value) : 0;
+  const meetingName = meetingInput ? meetingInput.dataset.name : '이메일 / 메신저';
 
-if(conceptCount > 0){
-    rows.push({
-        name:'추가 디자인 시안',
-        price:CONCEPT_PRICE,
-        qty:conceptCount,
-        sum:CONCEPT_PRICE * conceptCount
-    });
-}
+  const conceptPrice = conceptCount * CONCEPT_PRICE;
+  const totalConcepts = 1 + conceptCount;
+  const total = BASE_PRICE + packagePrice + conceptPrice + meetingPrice;
 
-if(Number(meetingInput.value) > 0){
-    rows.push({
-        name:meetingName,
-        price:Number(meetingInput.value),
-        qty:1,
-        sum:Number(meetingInput.value)
-    });
-}
+  const supplyPrice = Math.round(total / 1.1);
+  const vat = total - supplyPrice;
 
-document.getElementById('previewRows').innerHTML = rows.map(row=>`
-    <tr>
-        <td>${row.name}</td>
-        <td>${formatWon(row.price)}</td>
-        <td>${row.qty}</td>
-        <td>${formatWon(row.sum)}</td>
-    </tr>
-`).join('');
-    const supplyPrice = Math.round(total / 1.1);
-const vat = total - supplyPrice;
-    let detail=`${packageName} / 총 디자인 시안 ${totalConcepts}안 기준 예상 금액입니다.`;
-    if(packageInputs.length===0) detail='패키지 종류를 1개 이상 선택해주세요.';
-    document.getElementById('totalPrice').textContent=formatWon(total);
-    document.getElementById('estimateDetail').textContent=detail;
-    document.getElementById('basePackageText').textContent=formatWon(basePackage);
-    document.getElementById('totalConceptText').textContent=`${totalConcepts}안`;
-    document.getElementById('conceptText').textContent=conceptCount===0?'0원':`${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
-    document.getElementById('meetingText').textContent=meetingName==='이메일 / 메신저'?'이메일 / 메신저':`${meetingName} / ${formatWon(meetingPrice)}`;
-    document.getElementById('contactLink').href=KAKAO_CHANNEL_URL;
-    document.getElementById('supplyPriceText').textContent =
-    formatWon(supplyPrice);
+  document.getElementById('totalPrice').textContent = formatWon(total);
+  document.getElementById('estimateDetail').textContent =
+    packageInputs.length
+      ? `${packageName} / 총 디자인 시안 ${totalConcepts}안 기준 예상 금액입니다.`
+      : '패키지 종류를 1개 이상 선택해주세요.';
 
-document.getElementById('vatText').textContent =
-    formatWon(vat);
+  document.getElementById('basePackageText').textContent = formatWon(BASE_PRICE + packagePrice);
+  document.getElementById('totalConceptText').textContent = `${totalConcepts}안`;
+  document.getElementById('conceptText').textContent =
+    conceptCount === 0 ? '0원' : `${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
+  document.getElementById('meetingText').textContent =
+    meetingName === '이메일 / 메신저' ? '이메일 / 메신저' : `${meetingName} / ${formatWon(meetingPrice)}`;
+
+  if(document.getElementById('supplyPriceText')){
+    document.getElementById('supplyPriceText').textContent = formatWon(supplyPrice);
   }
-  document.querySelectorAll('input').forEach(input=>input.addEventListener('change',calculate));
-  function updateCounterLevel(){
+
+  if(document.getElementById('vatText')){
+    document.getElementById('vatText').textContent = formatWon(vat);
+  }
+
+  if(document.getElementById('totalPriceBottom')){
+    document.getElementById('totalPriceBottom').textContent = formatWon(total);
+  }
+
+  updateCounterLevel();
+}
+
+function updateCounterLevel(){
   const counter = document.querySelector('.counter');
+  if(!counter) return;
 
-  counter.classList.remove(
-    'level-0',
-    'level-1',
-    'level-2',
-    'level-3',
-    'level-4'
-  );
-
+  counter.classList.remove('level-0','level-1','level-2','level-3','level-4');
   counter.classList.add(`level-${Math.min(conceptCount,4)}`);
 }
- document.getElementById('minusConcept').addEventListener('click',()=>{
-  conceptCount=Math.max(0,conceptCount-1);
-  document.getElementById('conceptCount').textContent=conceptCount;
-  updateCounterLevel();
-  calculate();
-});
 
-document.getElementById('plusConcept').addEventListener('click',()=>{
-  conceptCount=Math.min(10,conceptCount+1);
-  document.getElementById('conceptCount').textContent=conceptCount;
-  updateCounterLevel();
-  calculate();
-});
-</script>
-<script>
 function copyEstimate(){
+  const packageTypes = getCheckedAll('package')
+    .map(el => el.dataset.name)
+    .join(', ') || '패키지 미선택';
 
-    const packageTypes = Array.from(
-        document.querySelectorAll('input[name="package"]:checked')
-    ).map(el => el.dataset.name || el.closest('label')?.innerText.trim()).join(', ') || '패키지 미선택';
+  const meetingInput = getChecked('meeting');
+  const communication = meetingInput ? meetingInput.dataset.name : '이메일 / 메신저';
 
-    const additionalDesigns =
-        document.getElementById('conceptCount')?.innerText.trim() || '0';
+  const estimate = document.getElementById('totalPrice')?.innerText.trim() || '';
 
-    const totalConcepts =
-        Number(additionalDesigns) + 1;
-
-    const communication =
-        document.querySelector('input[name="meeting"]:checked')?.dataset.name || '이메일 / 메신저';
-
-    const estimate =
-        document.getElementById('totalPrice')?.innerText.trim() || '';
-
-    const text =
+  const text =
 `안녕하세요.
 
 패키지 종류 : ${packageTypes}
 
-추가 시안 : ${additionalDesigns}개
-총 디자인 시안 : ${totalConcepts}안
+추가 시안 : ${conceptCount}개
+총 디자인 시안 : ${conceptCount + 1}안
 
 커뮤니케이션 :
 ${communication}
 
-예상 견적 (VAT 포함) :
+예상 견적 :
 ${estimate}
 
 상담 요청드립니다.`;
 
-    navigator.clipboard.writeText(text);
-
-    alert('견적 내용이 복사되었습니다.\n카카오톡에 붙여넣어 주세요.');
+  return navigator.clipboard.writeText(text);
 }
-  function copyAndGoKakao(){
-    copyEstimate();
 
-    setTimeout(()=>{
-        window.open(KAKAO_CHANNEL_URL, '_blank');
-    }, 300);
+function copyAndGoKakao(){
+  copyEstimate().then(()=>{
+    alert('견적 내용이 복사되었습니다. 카카오톡에 붙여넣어 주세요.');
+    window.open(KAKAO_CHANNEL_URL, '_blank');
+  });
 }
-</script>
-<script>
-function openQuoteSheet(){
-    const today = new Date();
-    const dateText = today.toLocaleDateString('ko-KR');
 
-    const packageInputs = Array.from(
-        document.querySelectorAll('input[name="package"]:checked')
-    );
+function printEstimate(){
+  window.print();
+}
 
-    const meetingInput = document.querySelector('input[name="meeting"]:checked');
-
-    const rows = [];
-
-    rows.push({
-        name:'기본 디자인 비용',
-        price:BASE_PRICE,
-        qty:1,
-      
-        sum:BASE_PRICE
-    });
-
-    packageInputs.forEach(input=>{
-        rows.push({
-            name:input.dataset.name,
-            price:Number(input.value),
-            qty:1,
-           
-            sum:Number(input.value)
-        });
-    });
-
-    if(conceptCount > 0){
-        rows.push({
-            name:'추가 디자인 시안',
-            price:CONCEPT_PRICE,
-            qty:conceptCount,
-            
-            sum:CONCEPT_PRICE * conceptCount
-        });
-    }
-
-    if(meetingInput && Number(meetingInput.value) > 0){
-        rows.push({
-            name:meetingInput.dataset.name,
-            price:Number(meetingInput.value),
-            qty:1,
-            
-            sum:Number(meetingInput.value)
-        });
-    }
-
-    const subtotal = rows.reduce((sum,row)=>sum + row.sum,0);
-const total = subtotal;
-
-const supplyPrice = Math.round(total / 1.1);
-const vat = total - supplyPrice;
-    document.getElementById('quoteDate').innerText = dateText;
-  document.getElementById('quoteTotalTop').innerText = formatWon(total);
-
-document.getElementById('quoteSubtotal').innerText =
-    formatWon(supplyPrice);
-
-document.getElementById('quoteVat').innerText =
-    formatWon(vat);
-
-document.getElementById('quoteTotalBottom').innerText =
-    formatWon(total);
-
-let html = '';
-
-rows.forEach((row,index)=>{
-
-    html += `
-    <tr>
-        <td>${row.name}</td>
-        <td>${formatWon(row.price)}</td>
-        <td>${row.qty}</td>
-        <td>${formatWon(row.sum)}</td>
-    </tr>
-    `;
-
-    const nextRow = rows[index + 1];
-
-    if(
-        row.name === '기본 디자인 비용' ||
-        (
-            nextRow &&
-            row.name !== '기본 디자인 비용' &&
-            nextRow.name === '추가 디자인 시안'
-        ) ||
-        (
-            nextRow &&
-            nextRow.name.includes('미팅')
-        )
-    ){
-        html += `
-        <tr class="quote-divider">
-            <td colspan="4"></td>
-        </tr>
-        `;
-    }
+document.querySelectorAll('input').forEach(input=>{
+  input.addEventListener('change', calculate);
 });
 
-document.getElementById('quoteRows').innerHTML = html;
+document.getElementById('minusConcept').addEventListener('click',()=>{
+  conceptCount = Math.max(0, conceptCount - 1);
+  document.getElementById('conceptCount').textContent = conceptCount;
+  calculate();
+});
 
-    document.getElementById('quoteSheet').classList.add('show');
-}
+document.getElementById('plusConcept').addEventListener('click',()=>{
+  conceptCount = Math.min(10, conceptCount + 1);
+  document.getElementById('conceptCount').textContent = conceptCount;
+  calculate();
+});
 
-function closeQuoteSheet(){
-    document.getElementById('quoteSheet').classList.remove('show');
-}
+calculate();
 </script>
   
  <div id="quoteSheet" class="quote-sheet">
