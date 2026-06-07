@@ -324,6 +324,13 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     text-align:center;
 }
 
+.quote-logo{
+    max-width:180px;
+    max-height:60px;
+    object-fit:contain;
+    margin-bottom:16px;
+}
+    
     .quote-sheet{
     display:none;
     position:fixed;
@@ -740,16 +747,8 @@ function openQuoteSheet(){
     const today = new Date();
     const dateText = today.toLocaleDateString('ko-KR');
 
-    const quoteNumber =
-        'DS-' +
-        today.getFullYear() +
-        String(today.getMonth()+1).padStart(2,'0') +
-        String(today.getDate()).padStart(2,'0') +
-        '-' +
-        Math.floor(Math.random()*900+100);
+  
 
-    document.getElementById('quoteDate').innerText = dateText;
-    document.getElementById('quoteNumber').innerText = quoteNumber;
     document.getElementById('quotePackages').innerText = packageTypes;
     document.getElementById('quoteConcepts').innerText = `${totalConcepts}안`;
     document.getElementById('quoteConceptPrice').innerText = conceptPrice;
@@ -766,36 +765,99 @@ function closeQuoteSheet(){
   
   <div id="quoteSheet" class="quote-sheet">
   <div class="quote-paper">
+
     <div class="quote-head">
       <div>
-        <h2>DESIGN SOPHER</h2>
-        <p>패키지 디자인 예상 견적서</p>
+        <img src="images/logo.png" alt="Design Sopher" class="quote-logo">
+        <h2>패키지 디자인 예상 견적서</h2>
+        <p>본 견적서는 참고용 예상 견적서입니다.</p>
       </div>
-      <button onclick="closeQuoteSheet()" class="quote-close">닫기</button>
+
+      <button onclick="closeQuoteSheet()" class="quote-close">
+        닫기
+      </button>
     </div>
 
     <div class="quote-meta">
-      <div><span>견적일자</span><strong id="quoteDate"></strong></div>
-      <div><span>견적번호</span><strong id="quoteNumber"></strong></div>
+      <div>
+        <span>견적일자</span>
+        <strong id="quoteDate"></strong>
+      </div>
     </div>
 
     <table class="quote-table">
-      <tr><th>항목</th><th>내용</th></tr>
-      <tr><td>패키지 종류</td><td id="quotePackages"></td></tr>
-      <tr><td>기본 디자인 비용</td><td>500,000원</td></tr>
-      <tr><td>총 디자인 시안</td><td id="quoteConcepts"></td></tr>
-      <tr><td>추가 시안 비용</td><td id="quoteConceptPrice"></td></tr>
-      <tr><td>커뮤니케이션 방식</td><td id="quoteMeeting"></td></tr>
-      <tr class="quote-total"><td>예상 견적 합계</td><td id="quoteTotal"></td></tr>
+      <tr>
+        <th>항목</th>
+        <th>내용</th>
+      </tr>
+
+      <tr>
+        <td>패키지 종류</td>
+        <td id="quotePackages"></td>
+      </tr>
+
+      <tr>
+        <td>기본 디자인 비용</td>
+        <td>500,000원</td>
+      </tr>
+
+      <tr>
+        <td>총 디자인 시안</td>
+        <td id="quoteConcepts"></td>
+      </tr>
+
+      <tr>
+        <td>추가 시안 비용</td>
+        <td id="quoteConceptPrice"></td>
+      </tr>
+
+      <tr>
+        <td>커뮤니케이션 방식</td>
+        <td id="quoteMeeting"></td>
+      </tr>
+
+      <tr class="quote-total">
+        <td>예상 견적 합계</td>
+        <td id="quoteTotal"></td>
+      </tr>
     </table>
 
-    <div class="quote-notice">
-      <p>* 본 견적은 예상 견적이며, 제품 특성·디자인 난이도·작업 범위에 따라 변경될 수 있습니다.</p>
-      <p>* 기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
-      <p>* 기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
+    <div class="quote-company">
+      <h3>DESIGN SOPHER</h3>
+      <p>패키지 디자인 전문 스튜디오</p>
+
+      <dl>
+        <div>
+          <dt>E-mail</dt>
+          <dd>opticalartt@gmail.com</dd>
+        </div>
+
+        <div>
+          <dt>KakaoTalk</dt>
+          <dd>카카오톡 채널 문의</dd>
+        </div>
+
+        <div>
+          <dt>Website</dt>
+          <dd>designsopher.github.io/designsopher</dd>
+        </div>
+      </dl>
     </div>
 
-    <button class="quote-print" onclick="window.print()">PDF로 저장하기</button>
+    <div class="quote-notice">
+      <p>본 견적서는 예상 견적 계산 결과이며, 실제 작업 범위 및 디자인 난이도에 따라 변경될 수 있습니다.</p>
+
+      <p>기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
+
+      <p>기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
+
+      <p>정확한 견적은 상담 후 최종 안내됩니다.</p>
+    </div>
+
+    <button class="quote-print" onclick="window.print()">
+      PDF로 저장하기
+    </button>
+
   </div>
 </div>
   
