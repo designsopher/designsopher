@@ -398,7 +398,11 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
       white-space:nowrap;
 
 }
-
+.quote-divider td{
+    border-bottom:1px dashed #bbb;
+    padding:0;
+    height:18px;
+}
 .quote-list{
     width:100%;
     border-collapse:collapse;
@@ -489,8 +493,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
 .quote-close,
 .quote-print{
-    position:fixed;
-    right:24px;
+    position:absolute;
     border:none;
     border-radius:999px;
     padding:11px 16px;
@@ -499,14 +502,13 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
 
 .quote-close{
-    top:24px;
-    background:#eee;
-    color:#111;
+    top:20px;
+    right:20px;
 }
-.quote-divider td{
-    border-bottom:1px dashed #c9c9c9;
-    padding:0;
-    height:18px;
+
+.quote-print{
+    top:20px;
+    right:110px;
 }
 .quote-print{
     top:76px;
@@ -890,6 +892,8 @@ document.getElementById('quoteTotalBottom').innerText =
 
 let html = '';
 
+let html = '';
+
 rows.forEach((row,index)=>{
 
     html += `
@@ -901,9 +905,19 @@ rows.forEach((row,index)=>{
     </tr>
     `;
 
+    const nextRow = rows[index + 1];
+
     if(
         row.name === '기본 디자인 비용' ||
-        row.name === '추가 디자인 시안'
+        (
+            nextRow &&
+            row.name !== '기본 디자인 비용' &&
+            nextRow.name === '추가 디자인 시안'
+        ) ||
+        (
+            nextRow &&
+            nextRow.name.includes('미팅')
+        )
     ){
         html += `
         <tr class="quote-divider">
