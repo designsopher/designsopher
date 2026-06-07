@@ -177,21 +177,24 @@
   document.getElementById('plusConcept').addEventListener('click',()=>{conceptCount=Math.min(10,conceptCount+1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
   calculate();
 </script>
-  <script>
+<script>
 function copyEstimate(){
 
-const packageTypes = Array.from(
-    document.querySelectorAll('input[name="package"]:checked')
-).map(el => el.dataset.label || el.closest('label')?.innerText.trim()).join(', ');
+    const packageTypes = Array.from(
+        document.querySelectorAll('input[name="package"]:checked')
+    ).map(el => el.dataset.name || el.closest('label')?.innerText.trim()).join(', ') || '패키지 미선택';
 
     const additionalDesigns =
-        document.querySelector('.count')?.innerText || '0';
+        document.getElementById('conceptCount')?.innerText.trim() || '0';
+
+    const totalConcepts =
+        Number(additionalDesigns) + 1;
 
     const communication =
-        document.querySelector('input[name="communication"]:checked')?.dataset.label || '기본 이메일·메신저';
+        document.querySelector('input[name="meeting"]:checked')?.dataset.name || '이메일 / 메신저';
 
     const estimate =
-        document.getElementById('.estimate-price')?.innerText .trim()|| '';
+        document.getElementById('totalPrice')?.innerText.trim() || '';
 
     const text =
 `안녕하세요.
@@ -199,6 +202,7 @@ const packageTypes = Array.from(
 패키지 종류 : ${packageTypes}
 
 추가 시안 : ${additionalDesigns}개
+총 디자인 시안 : ${totalConcepts}안
 
 커뮤니케이션 :
 ${communication}
