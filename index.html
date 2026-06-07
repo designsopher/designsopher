@@ -132,7 +132,7 @@
 
   <section class="section">
     <div class="result-card">
-      <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
+      <div class="estimate-label">예상 견적</div><div class=".estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
      <button class="contact" onclick="copyEstimate()" style="margin-bottom:10px;border:none;cursor:pointer;">
 📋 견적 내용 복사
@@ -185,14 +185,13 @@ const packageTypes = Array.from(
 ).map(el => el.dataset.label || el.closest('label')?.innerText.trim()).join(', ');
 
     const additionalDesigns =
-        document.getElementById('designCount') ?
-        document.getElementById('designCount').innerText : '0';
+        document.querySelector('.count')?.innerText || '0';
 
     const communication =
         document.querySelector('input[name="communication"]:checked')?.dataset.label || '기본 이메일·메신저';
 
     const estimate =
-        document.getElementById('estimate-price')?.innerText || '';
+        document.getElementById('.estimate-price')?.innerText .trim()|| '';
 
     const text =
 `안녕하세요.
