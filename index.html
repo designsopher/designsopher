@@ -283,12 +283,17 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     border-radius:24px;
     padding:28px 22px;
     border:1px solid var(--line);
+    overflow:hidden;
 }
 
 .estimate-doc-title{
-    font-size:28px;
+    background:#111;
+    color:#fff;
+    margin:-28px -22px 24px;
+    padding:34px 22px;
+    font-size:30px;
     font-weight:900;
-    margin-bottom:24px;
+    border-radius:24px 24px 0 0;
 }
 
 .estimate-doc-top{
@@ -321,10 +326,11 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
 
 .preview-total p{
-    font-size:42px;
+    font-size:38px;
     font-weight:900;
     letter-spacing:-.06em;
     color:#111;
+  white-space:nowrap;
 }
 
 .estimate-doc-table{
@@ -468,19 +474,20 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
     
     .row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.78)}.row strong{color:#fff;text-align:right}
-    .contact{
+.contact{
     display:block;
     width:100%;
     text-align:center;
     padding:15px 16px;
-    background:#fff;
-    color:var(--accent);
+    background:#111;
+    color:#fff;
     border-radius:17px;
     text-decoration:none;
     font-weight:900;
     letter-spacing:-.02em;
     font-size:16px;
     border:none;
+    cursor:pointer;
 }
     .footer-note{color:var(--muted);font-size:12px;padding:14px 2px 0}
     .muted-small{
