@@ -134,6 +134,9 @@
     <div class="result-card">
       <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
+     <button class="contact" onclick="copyEstimate()" style="margin-bottom:10px;border:none;cursor:pointer;">
+📋 견적 내용 복사
+</button>
       <a class="contact" id="contactLink" href="#" target="_blank" rel="noopener">견적 문의하기</a>
       <div class="muted-small">문의 버튼을 누르면 카카오톡 채널 상담으로 연결됩니다.</div>
     </div>
@@ -173,6 +176,43 @@
   document.getElementById('minusConcept').addEventListener('click',()=>{conceptCount=Math.max(0,conceptCount-1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
   document.getElementById('plusConcept').addEventListener('click',()=>{conceptCount=Math.min(10,conceptCount+1);document.getElementById('conceptCount').textContent=conceptCount;calculate();});
   calculate();
+</script>
+  <script>
+function copyEstimate(){
+
+    const packageTypes = Array.from(
+        document.querySelectorAll('input[name="package"]:checked')
+    ).map(el => el.dataset.label).join(', ');
+
+    const additionalDesigns =
+        document.getElementById('designCount') ?
+        document.getElementById('designCount').innerText : '0';
+
+    const communication =
+        document.querySelector('input[name="communication"]:checked')?.dataset.label || '기본 이메일·메신저';
+
+    const estimate =
+        document.getElementById('estimatePrice')?.innerText || '';
+
+    const text =
+`안녕하세요.
+
+패키지 종류 : ${packageTypes}
+
+추가 시안 : ${additionalDesigns}개
+
+커뮤니케이션 :
+${communication}
+
+예상 견적 :
+${estimate}
+
+상담 요청드립니다.`;
+
+    navigator.clipboard.writeText(text);
+
+    alert('견적 내용이 복사되었습니다.\n카카오톡에 붙여넣어 주세요.');
+}
 </script>
 </body>
 </html>
