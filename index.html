@@ -292,6 +292,28 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     margin-bottom:16px;
     text-align:right;
 }
+
+    .vat-breakdown{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,.15);
+    display:grid;
+    gap:6px;
+}
+
+.vat-breakdown div{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:12px;
+    color:rgba(255,255,255,.75);
+}
+
+.vat-breakdown strong{
+    color:#fff;
+    font-weight:800;
+}
+    
     .breakdown{
     background:rgba(255,255,255,.09);
     border-radius:18px;
@@ -712,7 +734,18 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
   
     <div class="result-card">
-      <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
+      <div class="estimate-label">예상 견적 (VAT 포함)</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
+      <div class="vat-breakdown">
+    <div>
+        <span>공급가액</span>
+        <strong id="supplyPriceText">0원</strong>
+    </div>
+
+    <div>
+        <span>부가세(VAT)</span>
+        <strong id="vatText">0원</strong>
+    </div>
+</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
     <button class="contact" onclick="openQuoteSheet()" style="margin-bottom:14px;">
 견적서 보기 / PDF 저장
@@ -744,6 +777,8 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     const meetingPrice=Number(meetingInput.value), meetingName=meetingInput.dataset.name;
     const basePackage=BASE_PRICE+packagePrice, conceptPrice=conceptCount*CONCEPT_PRICE, totalConcepts=1+conceptCount;
     const total=basePackage+conceptPrice+meetingPrice;
+    const supplyPrice = Math.round(total / 1.1);
+const vat = total - supplyPrice;
     let detail=`${packageName} / 총 디자인 시안 ${totalConcepts}안 기준 예상 금액입니다.`;
     if(packageInputs.length===0) detail='패키지 종류를 1개 이상 선택해주세요.';
     document.getElementById('totalPrice').textContent=formatWon(total);
@@ -753,6 +788,11 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     document.getElementById('conceptText').textContent=conceptCount===0?'0원':`${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
     document.getElementById('meetingText').textContent=meetingName==='이메일 / 메신저'?'이메일 / 메신저':`${meetingName} / ${formatWon(meetingPrice)}`;
     document.getElementById('contactLink').href=KAKAO_CHANNEL_URL;
+    document.getElementById('supplyPriceText').textContent =
+    formatWon(supplyPrice);
+
+document.getElementById('vatText').textContent =
+    formatWon(vat);
   }
   document.querySelectorAll('input').forEach(input=>input.addEventListener('change',calculate));
   function updateCounterLevel(){
@@ -812,7 +852,7 @@ function copyEstimate(){
 커뮤니케이션 :
 ${communication}
 
-예상 견적 :
+예상 견적 (VAT 포함) :
 ${estimate}
 
 상담 요청드립니다.`;
