@@ -285,32 +285,36 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     border:1px solid var(--line);
     overflow:hidden;
 }
-
 .estimate-doc-title{
     background:#111;
     color:#fff;
     margin:-28px -22px 28px;
     padding:42px 36px 46px;
-    font-size:42px;
-    line-height:1.12;
-    font-weight:900;
-    letter-spacing:-.06em;
-    border-radius:24px;
+    border-radius:24px 24px 0 0;
     position:relative;
     overflow:hidden;
 }
 
-.estimate-doc-title::before{
-    content:"Designsopher";
+.estimate-brand{
     display:block;
     font-size:20px;
-    letter-spacing:-.03em;
+    font-weight:900;
     margin-bottom:70px;
-    color:#fff;
+    position:relative;
+    z-index:1;
 }
 
-.estimate-doc-title::after{
-    content:"예상 견적과 항목별 비용을 확인할 수 있습니다.";
+.estimate-title-text{
+    display:block;
+    font-size:42px;
+    line-height:1.12;
+    font-weight:900;
+    letter-spacing:-.06em;
+    position:relative;
+    z-index:1;
+}
+
+.estimate-desc{
     display:block;
     margin-top:18px;
     font-size:15px;
@@ -318,6 +322,19 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     font-weight:500;
     letter-spacing:-.03em;
     color:rgba(255,255,255,.72);
+    position:relative;
+    z-index:1;
+}
+
+.estimate-circle{
+    position:absolute;
+    width:210px;
+    height:210px;
+    right:-70px;
+    top:-70px;
+    border-radius:50%;
+    background:rgba(255,255,255,.10);
+}
 }
 .estimate-document{
     overflow:hidden;
@@ -935,7 +952,12 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
   
 <div class="estimate-document" id="estimateDocument">
-  <div class="estimate-doc-title">패키지 디자인 예상 견적서</div>
+  <div class="estimate-doc-title">
+  <span class="estimate-brand">Designsopher</span>
+  <span class="estimate-title-text">패키지 디자인<br>예상 견적서</span>
+  <span class="estimate-desc">본 견적서는 예상 견적 계산 결과이며, 정확한 견적은 상담 후 최종 안내됩니다.</span>
+  <span class="estimate-circle"></span>
+</div>
 
   <div class="estimate-doc-top">
     <div>
