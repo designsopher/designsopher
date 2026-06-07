@@ -866,18 +866,27 @@ function openQuoteSheet(){
     }
 
     const subtotal = rows.reduce((sum,row)=>sum + row.sum,0);
+const total = subtotal;
 
+const supplyPrice = Math.round(total / 1.1);
+const vat = total - supplyPrice;
     document.getElementById('quoteDate').innerText = dateText;
-    document.getElementById('quoteTotalTop').innerText = formatWon(subtotal);
-    document.getElementById('quoteSubtotal').innerText = formatWon(subtotal);
-    document.getElementById('quoteTotalBottom').innerText = formatWon(subtotal);
+  document.getElementById('quoteTotalTop').innerText = formatWon(total);
+
+document.getElementById('quoteSubtotal').innerText =
+    formatWon(supplyPrice);
+
+document.getElementById('quoteVat').innerText =
+    formatWon(vat);
+
+document.getElementById('quoteTotalBottom').innerText =
+    formatWon(total);
 
     document.getElementById('quoteRows').innerHTML = rows.map(row=>`
         <tr>
             <td>${row.name}</td>
             <td>${formatWon(row.price)}</td>
             <td>${row.qty}</td>
-            <td>${row.unit}</td>
             <td>${formatWon(row.sum)}</td>
         </tr>
     `).join('');
@@ -925,7 +934,6 @@ function closeQuoteSheet(){
           <th>Contents</th>
           <th>Each Price</th>
           <th>Qty</th>
-          <th>Unit</th>
           <th>Sum</th>
         </tr>
       </thead>
