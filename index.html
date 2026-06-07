@@ -323,7 +323,151 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     margin-top:10px;
     text-align:center;
 }
-    
+
+    .quote-sheet{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    z-index:999;
+    padding:24px;
+    overflow:auto;
+}
+
+.quote-sheet.show{
+    display:block;
+}
+
+.quote-paper{
+    max-width:720px;
+    margin:0 auto;
+    background:#fff;
+    color:#111;
+    border-radius:24px;
+    padding:32px;
+}
+
+.quote-head{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    align-items:flex-start;
+    border-bottom:2px solid #111;
+    padding-bottom:20px;
+    margin-bottom:20px;
+}
+
+.quote-head h2{
+    margin:0;
+    font-size:26px;
+    letter-spacing:.08em;
+}
+
+.quote-head p{
+    margin:6px 0 0;
+    color:#666;
+}
+
+.quote-close{
+    border:none;
+    background:#eee;
+    border-radius:999px;
+    padding:8px 14px;
+    cursor:pointer;
+}
+
+.quote-meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.quote-meta div{
+    background:#f6f2ea;
+    padding:14px;
+    border-radius:14px;
+}
+
+.quote-meta span{
+    display:block;
+    color:#777;
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+.quote-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:20px;
+}
+
+.quote-table th,
+.quote-table td{
+    border:1px solid #ddd;
+    padding:14px;
+    text-align:left;
+    font-size:14px;
+}
+
+.quote-table th{
+    background:#111;
+    color:#fff;
+}
+
+.quote-total td{
+    font-size:18px;
+    font-weight:900;
+    background:#f6f2ea;
+}
+
+.quote-notice{
+    color:#666;
+    font-size:12px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.quote-print{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    background:#111;
+    color:#fff;
+    padding:16px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+@media print{
+    body *{
+        visibility:hidden;
+    }
+
+    #quoteSheet,
+    #quoteSheet *{
+        visibility:visible;
+    }
+
+    #quoteSheet{
+        display:block;
+        position:absolute;
+        inset:0;
+        background:#fff;
+        padding:0;
+    }
+
+    .quote-paper{
+        max-width:none;
+        border-radius:0;
+        padding:32px;
+    }
+
+    .quote-close,
+    .quote-print{
+        display:none;
+    }
+}
     @media(min-width:700px){ .material-mini-grid{
         grid-template-columns:repeat(4,1fr);
     }.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}..brand-logo{max-width:210px;max-height:64px}}
@@ -467,7 +611,10 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     <div class="result-card">
       <div class="estimate-label">예상 견적</div><div class="estimate-price" id="totalPrice">0원</div><div class="estimate-detail" id="estimateDetail">옵션을 선택하면 견적이 계산됩니다.</div>
       <div class="breakdown"><div class="row"><span>기본 + 패키지 종류</span><strong id="basePackageText">0원</strong></div><div class="row"><span>총 디자인 시안</span><strong id="totalConceptText">1안</strong></div><div class="row"><span>추가 시안 비용</span><strong id="conceptText">0원</strong></div><div class="row"><span>커뮤니케이션</span><strong id="meetingText">기본</strong></div></div>
-     <button class="contact" onclick="copyEstimate()" style="margin-bottom:14px;">
+    <button class="contact" onclick="openQuoteSheet()" style="margin-bottom:14px;">
+견적서 보기 / PDF 저장
+</button>
+      <button class="contact" onclick="copyEstimate()" style="margin-bottom:14px;">
 📋 견적 내용 복사
 </button>
       <a class="contact" id="contactLink" href="#" target="_blank" rel="noopener">견적 문의하기</a>
@@ -572,5 +719,85 @@ ${estimate}
     alert('견적 내용이 복사되었습니다.\n카카오톡에 붙여넣어 주세요.');
 }
 </script>
+<script>
+function openQuoteSheet(){
+    const packageTypes = Array.from(
+        document.querySelectorAll('input[name="package"]:checked')
+    ).map(el => el.dataset.name).join(', ') || '패키지 미선택';
+
+    const additionalDesigns = Number(document.getElementById('conceptCount')?.innerText || 0);
+    const totalConcepts = additionalDesigns + 1;
+
+    const communication =
+        document.querySelector('input[name="meeting"]:checked')?.dataset.name || '이메일 / 메신저';
+
+    const total =
+        document.getElementById('totalPrice')?.innerText.trim() || '0원';
+
+    const conceptPrice =
+        document.getElementById('conceptText')?.innerText.trim() || '0원';
+
+    const today = new Date();
+    const dateText = today.toLocaleDateString('ko-KR');
+
+    const quoteNumber =
+        'DS-' +
+        today.getFullYear() +
+        String(today.getMonth()+1).padStart(2,'0') +
+        String(today.getDate()).padStart(2,'0') +
+        '-' +
+        Math.floor(Math.random()*900+100);
+
+    document.getElementById('quoteDate').innerText = dateText;
+    document.getElementById('quoteNumber').innerText = quoteNumber;
+    document.getElementById('quotePackages').innerText = packageTypes;
+    document.getElementById('quoteConcepts').innerText = `${totalConcepts}안`;
+    document.getElementById('quoteConceptPrice').innerText = conceptPrice;
+    document.getElementById('quoteMeeting').innerText = communication;
+    document.getElementById('quoteTotal').innerText = total;
+
+    document.getElementById('quoteSheet').classList.add('show');
+}
+
+function closeQuoteSheet(){
+    document.getElementById('quoteSheet').classList.remove('show');
+}
+</script>
+  
+  <div id="quoteSheet" class="quote-sheet">
+  <div class="quote-paper">
+    <div class="quote-head">
+      <div>
+        <h2>DESIGN SOPHER</h2>
+        <p>패키지 디자인 예상 견적서</p>
+      </div>
+      <button onclick="closeQuoteSheet()" class="quote-close">닫기</button>
+    </div>
+
+    <div class="quote-meta">
+      <div><span>견적일자</span><strong id="quoteDate"></strong></div>
+      <div><span>견적번호</span><strong id="quoteNumber"></strong></div>
+    </div>
+
+    <table class="quote-table">
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td>패키지 종류</td><td id="quotePackages"></td></tr>
+      <tr><td>기본 디자인 비용</td><td>500,000원</td></tr>
+      <tr><td>총 디자인 시안</td><td id="quoteConcepts"></td></tr>
+      <tr><td>추가 시안 비용</td><td id="quoteConceptPrice"></td></tr>
+      <tr><td>커뮤니케이션 방식</td><td id="quoteMeeting"></td></tr>
+      <tr class="quote-total"><td>예상 견적 합계</td><td id="quoteTotal"></td></tr>
+    </table>
+
+    <div class="quote-notice">
+      <p>* 본 견적은 예상 견적이며, 제품 특성·디자인 난이도·작업 범위에 따라 변경될 수 있습니다.</p>
+      <p>* 기본 디자인 수정 2회, 문구 수정 5회가 포함됩니다.</p>
+      <p>* 기본 제공 횟수를 초과하는 수정 요청 시 추가 비용이 발생할 수 있습니다.</p>
+    </div>
+
+    <button class="quote-print" onclick="window.print()">PDF로 저장하기</button>
+  </div>
+</div>
+  
 </body>
 </html>
