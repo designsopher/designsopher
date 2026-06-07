@@ -180,9 +180,9 @@
   <script>
 function copyEstimate(){
 
-    const packageTypes = Array.from(
-        document.querySelectorAll('input[name="package"]:checked')
-    ).map(el => el.dataset.label).join(', ');
+const packageTypes = Array.from(
+    document.querySelectorAll('input[name="package"]:checked')
+).map(el => el.dataset.label || el.closest('label')?.innerText.trim()).join(', ');
 
     const additionalDesigns =
         document.getElementById('designCount') ?
@@ -192,7 +192,7 @@ function copyEstimate(){
         document.querySelector('input[name="communication"]:checked')?.dataset.label || '기본 이메일·메신저';
 
     const estimate =
-        document.getElementById('estimatePrice')?.innerText || '';
+        document.getElementById('estimate-price')?.innerText || '';
 
     const text =
 `안녕하세요.
