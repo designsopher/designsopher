@@ -390,7 +390,7 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
 .quote-total-box strong{
     display:block;
-    font-size:42px;
+    font-size:38px;
     line-height:1;
     text-align:right;
     letter-spacing:-0.06em;
@@ -475,10 +475,14 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 }
 
 .quote-sign{
-    font-size:13px;
-    letter-spacing:.28em;
-    color:#333;
-    white-space:nowrap;
+    width:160px;
+    text-align:right;
+}
+
+.quote-sign img{
+    max-width:160px;
+    max-height:48px;
+    object-fit:contain;
 }
 
 .quote-close,
@@ -503,7 +507,6 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     background:#111;
     color:#fff;
 }
-
 @media print{
     @page{
         size:A4;
@@ -512,35 +515,46 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
 
     html,
     body{
-        margin:0;
-        padding:0;
-        background:#fff;
-        overflow:hidden;
+        width:210mm;
+        height:297mm;
+        margin:0 !important;
+        padding:0 !important;
+        background:#fff !important;
+        overflow:hidden !important;
     }
 
     body *{
-        visibility:hidden;
+        visibility:hidden !important;
     }
 
     #quoteSheet,
     #quoteSheet *{
-        visibility:visible;
+        visibility:visible !important;
     }
 
     #quoteSheet{
         display:block !important;
-        position:absolute;
-        inset:0;
-        background:#fff;
-        padding:0;
-        overflow:hidden;
+        position:fixed !important;
+        left:0 !important;
+        top:0 !important;
+        width:210mm !important;
+        height:297mm !important;
+        margin:0 !important;
+        padding:0 !important;
+        background:#fff !important;
+        overflow:hidden !important;
     }
 
     .quote-paper{
-        width:210mm;
-        min-height:297mm;
-        margin:0;
-        box-shadow:none;
+        position:relative !important;
+        width:210mm !important;
+        height:297mm !important;
+        min-height:0 !important;
+        margin:0 !important;
+        padding:18mm 16mm !important;
+        border-radius:0 !important;
+        box-shadow:none !important;
+        overflow:hidden !important;
     }
 
     .quote-close,
@@ -549,58 +563,6 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     }
 }
 
-@media print{
-    @page{
-        size:A4;
-        margin:12mm;
-    }
-
-    html,
-    body{
-        width:210mm;
-        height:auto;
-        margin:0;
-        padding:0;
-        background:#fff;
-        overflow:hidden;
-    }
-
-    body *{
-        visibility:hidden;
-    }
-
-    #quoteSheet,
-    #quoteSheet *{
-        visibility:visible;
-    }
-
-    #quoteSheet{
-        display:block !important;
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        height:auto;
-        min-height:0;
-        background:#fff;
-        padding:0;
-        overflow:visible;
-    }
-
-    .quote-paper{
-        max-width:none;
-        width:100%;
-        margin:0;
-        padding:0;
-        border-radius:0;
-        box-shadow:none;
-    }
-
-    .quote-close,
-    .quote-print{
-        display:none !important;
-    }
-}
     @media(min-width:700px){ .material-mini-grid{
         grid-template-columns:repeat(4,1fr);
     }.wrap{padding-top:38px}.hero{padding:42px 36px}.brand{margin-bottom:86px}h1{font-size:48px}.section{padding:26px}.info-grid,.deliverables,.package-grid,.options.two{grid-template-columns:1fr 1fr}.hero-actions{display:flex}.hero-actions .btn{min-width:160px}..brand-logo{max-width:210px;max-height:64px}}
@@ -931,14 +893,14 @@ function closeQuoteSheet(){
  <div id="quoteSheet" class="quote-sheet">
   <div class="quote-paper">
 
-    <div class="quote-doc-title">Estimate.</div>
+    <div class="quote-doc-title">패키지 디자인 견적서</div>
 
     <div class="quote-top">
       <div>
         <h4>Provider info.</h4>
-        <p>Design Sopher</p>
+        <p>디자인소퍼 Design Sopher</p>
         <p>Package Design Studio</p>
-        <p>opticalartt@gmail.com</p>
+        <p>designsopher@gmail.com</p>
       </div>
 
       <div>
@@ -983,7 +945,9 @@ function closeQuoteSheet(){
         <p>정확한 견적은 상담 후 최종 안내됩니다.</p>
       </div>
 
-      <div class="quote-sign">DESIGN SOPHER</div>
+<div class="quote-sign">
+  <img src="images/logo_b.png" alt="Design Sopher">
+</div>
     </div>
 
     <button class="quote-close" onclick="closeQuoteSheet()">닫기</button>
