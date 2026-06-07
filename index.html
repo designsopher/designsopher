@@ -503,7 +503,11 @@ border-radius:26px;padding:22px 18px;box-shadow:0 10px 34px rgba(0,0,0,.13)}.est
     background:#eee;
     color:#111;
 }
-
+.quote-divider td{
+    border-bottom:1px dashed #c9c9c9;
+    padding:0;
+    height:18px;
+}
 .quote-print{
     top:76px;
     background:#111;
@@ -884,14 +888,32 @@ document.getElementById('quoteVat').innerText =
 document.getElementById('quoteTotalBottom').innerText =
     formatWon(total);
 
-    document.getElementById('quoteRows').innerHTML = rows.map(row=>`
-        <tr>
-            <td>${row.name}</td>
-            <td>${formatWon(row.price)}</td>
-            <td>${row.qty}</td>
-            <td>${formatWon(row.sum)}</td>
+let html = '';
+
+rows.forEach((row,index)=>{
+
+    html += `
+    <tr>
+        <td>${row.name}</td>
+        <td>${formatWon(row.price)}</td>
+        <td>${row.qty}</td>
+        <td>${formatWon(row.sum)}</td>
+    </tr>
+    `;
+
+    if(
+        row.name === '기본 디자인 비용' ||
+        row.name === '추가 디자인 시안'
+    ){
+        html += `
+        <tr class="quote-divider">
+            <td colspan="4"></td>
         </tr>
-    `).join('');
+        `;
+    }
+});
+
+document.getElementById('quoteRows').innerHTML = html;
 
     document.getElementById('quoteSheet').classList.add('show');
 }
