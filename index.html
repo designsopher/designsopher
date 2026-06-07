@@ -979,24 +979,19 @@ function calculate(){
   const meetingName = meetingInput ? meetingInput.dataset.name : '이메일 / 메신저';
 
   const conceptPrice = conceptCount * CONCEPT_PRICE;
-  const totalConcepts = 1 + conceptCount;
   const total = BASE_PRICE + packagePrice + conceptPrice + meetingPrice;
 
   const supplyPrice = Math.round(total / 1.1);
   const vat = total - supplyPrice;
 
-  document.getElementById('totalPrice').textContent = formatWon(total);
-  document.getElementById('estimateDetail').textContent =
-    packageInputs.length
-      ? `${packageName} / 총 디자인 시안 ${totalConcepts}안 기준 예상 금액입니다.`
-      : '패키지 종류를 1개 이상 선택해주세요.';
+  if(document.getElementById('totalPrice')){
+    document.getElementById('totalPrice').textContent = formatWon(total);
+  }
 
-  document.getElementById('basePackageText').textContent = formatWon(BASE_PRICE + packagePrice);
-  document.getElementById('totalConceptText').textContent = `${totalConcepts}안`;
-  document.getElementById('conceptText').textContent =
-    conceptCount === 0 ? '0원' : `${conceptCount}안 추가 / ${formatWon(conceptPrice)}`;
-  document.getElementById('meetingText').textContent =
-    meetingName === '이메일 / 메신저' ? '이메일 / 메신저' : `${meetingName} / ${formatWon(meetingPrice)}`;
+  if(document.getElementById('previewDate')){
+    const today = new Date();
+    document.getElementById('previewDate').textContent = today.toLocaleDateString('ko-KR');
+  }
 
   if(document.getElementById('supplyPriceText')){
     document.getElementById('supplyPriceText').textContent = formatWon(supplyPrice);
@@ -1009,52 +1004,54 @@ function calculate(){
   if(document.getElementById('totalPriceBottom')){
     document.getElementById('totalPriceBottom').textContent = formatWon(total);
   }
-if(document.getElementById('previewRows')){
-  const rows = [];
 
-  rows.push({
-    name:'기본 디자인 비용',
-    price:BASE_PRICE,
-    qty:1,
-    sum:BASE_PRICE
-  });
+  if(document.getElementById('previewRows')){
+    const rows = [];
 
-  packageInputs.forEach(input=>{
     rows.push({
-      name:input.dataset.name,
-      price:Number(input.value),
+      name:'기본 디자인 비용',
+      price:BASE_PRICE,
       qty:1,
-      sum:Number(input.value)
+      sum:BASE_PRICE
     });
-  });
 
-  if(conceptCount > 0){
-    rows.push({
-      name:'추가 디자인 시안',
-      price:CONCEPT_PRICE,
-      qty:conceptCount,
-      sum:CONCEPT_PRICE * conceptCount
+    packageInputs.forEach(input=>{
+      rows.push({
+        name:input.dataset.name,
+        price:Number(input.value),
+        qty:1,
+        sum:Number(input.value)
+      });
     });
+
+    if(conceptCount > 0){
+      rows.push({
+        name:'추가 디자인 시안',
+        price:CONCEPT_PRICE,
+        qty:conceptCount,
+        sum:CONCEPT_PRICE * conceptCount
+      });
+    }
+
+    if(meetingPrice > 0){
+      rows.push({
+        name:meetingName,
+        price:meetingPrice,
+        qty:1,
+        sum:meetingPrice
+      });
+    }
+
+    document.getElementById('previewRows').innerHTML = rows.map(row=>`
+      <tr>
+        <td>${row.name}</td>
+        <td>${formatWon(row.price)}</td>
+        <td>${row.qty}</td>
+        <td>${formatWon(row.sum)}</td>
+      </tr>
+    `).join('');
   }
 
-  if(meetingPrice > 0){
-    rows.push({
-      name:meetingName,
-      price:meetingPrice,
-      qty:1,
-      sum:meetingPrice
-    });
-  }
-
-  document.getElementById('previewRows').innerHTML = rows.map(row=>`
-    <tr>
-      <td>${row.name}</td>
-      <td>${formatWon(row.price)}</td>
-      <td>${row.qty}</td>
-      <td>${formatWon(row.sum)}</td>
-    </tr>
-  `).join('');
-}
   updateCounterLevel();
 }
 
